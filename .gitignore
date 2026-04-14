@@ -1,3 +1,5 @@
+# Data and cache folders
+data/
 !data/.gitkeep
 
 # Dependencies
