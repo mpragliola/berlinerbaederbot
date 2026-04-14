@@ -82,47 +82,22 @@ function extractAmenities($el) {
  * Extract district from pool detail page
  */
 /**
- * Extract PLZ and district from pool detail page.
- * Berlin pages contain a line like "10969 Berlin Friedrichshain-Kreuzberg".
- * Returns { plz, district } or null.
- */
-function extractPlzAndDistrictFromDetail($) {
-  const lines = $('body').text().split('\n');
-  for (const line of lines) {
-    const match = line.trim().match(/\b(1[0-4]\d{3})\s+Berlin\s+(.+)/i);
-    if (match) {
-      return { plz: match[1], district: match[2].trim() };
-    }
-  }
-  return null;
-}
-
-/**
- * Extract address from pool detail page
- * Only extracts actual street addresses (not full page text)
+ * Extract address, PLZ, and district from pool detail page.
+ * Pages contain consecutive lines: "{street address}" then "{PLZ} Berlin {District}".
+ * Returns { address, plz, district } or null.
  */
 function extractAddressFromDetail($) {
-  // Look for clean address pattern: "Street Name Number"
-  // Examples: "Krumme Straße 10", "Fritz-Lesch-Straße 24", "Wiener Straße 59H"
-
-  const text = $('body').text();
-  const lines = text.split('\n');
-
-  for (const line of lines) {
-    const cleaned = line.trim();
-
-    // Skip very long lines (likely page content, not addresses)
-    if (cleaned.length > 150) continue;
-
-    // Pattern: Word(s) + Straße/Str./Weg/Platz/Allee + number (+ optional letter)
-    const addressPattern = /^([\w\-\s]+(?:straße|str\.|weg|platz|allee)[\s\.]*\d+[a-z]?)\s*$/i;
-    const match = cleaned.match(addressPattern);
-
+  const lines = $('body').text().split('\n').map(l => l.trim()).filter(Boolean);
+  for (let i = 1; i < lines.length; i++) {
+    const match = lines[i].match(/^(1[0-4]\d{3})\s+Berlin\s+(.+)/i);
     if (match) {
-      return match[1].trim();
+      return {
+        address: lines[i - 1],
+        plz: match[1],
+        district: match[2].trim()
+      };
     }
   }
-
   return null;
 }
 
@@ -255,15 +230,11 @@ async function fetchPoolCatalog() {
 
         const $ = cheerio.load(response.data);
 
-        const plzDistrict = extractPlzAndDistrictFromDetail($);
-        if (plzDistrict) {
-          pools[i].plz = plzDistrict.plz;
-          pools[i].district = plzDistrict.district; // More reliable than name-based extraction
-        }
-
-        const address = extractAddressFromDetail($);
-        if (address) {
-          pools[i].address = address;
+        const detail = extractAddressFromDetail($);
+        if (detail) {
+          pools[i].address = detail.address;
+          pools[i].plz = detail.plz;
+          pools[i].district = detail.district;
         }
 
         detailCount++;
@@ -342,52 +313,55 @@ async function geocodeCatalog(pools) {
   for (let i = 0; i < pools.length; i++) {
     const pool = pools[i];
 
-    if (pool.address && pool.plz) {
-      const cacheKey = geocodeCache.getCacheKey(pool.address, pool.plz);
-      const cachedEntry = cacheKey && cache.entries[cacheKey];
+    if (!pool.address) {
+      console.log(`  ⚠️  SKIP (no address)     ${pool.name}`);
+      continue;
+    }
+    if (!pool.plz) {
+      console.log(`  ⚠️  SKIP (no PLZ)         ${pool.name}`);
+      continue;
+    }
 
-      let coords;
-      if (cachedEntry) {
-        // Use cached value directly - no API call (includes previously-failed lookups)
-        if (!cachedEntry.failed) {
-          coords = {
-            latitude: cachedEntry.latitude,
-            longitude: cachedEntry.longitude
-          };
-          cacheHits++;
-        }
-      } else {
-        // Only call geocodeAddress if NOT cached
-        coords = await geocodeAddress(pool.address, pool.plz);
-        if (coords) {
-          cacheMisses++;
-          cache.entries[cacheKey] = {
-            address: pool.address,
-            plz: pool.plz,
-            latitude: coords.latitude,
-            longitude: coords.longitude,
-            cachedAt: new Date().toISOString()
-          };
-        } else {
-          // Cache the failure to avoid re-querying Nominatim on every run
-          cache.entries[cacheKey] = { failed: true, cachedAt: new Date().toISOString() };
-        }
-        cacheNewEntries++;
+    const cacheKey = geocodeCache.getCacheKey(pool.address, pool.plz);
+    const cachedEntry = cache.entries[cacheKey];
 
-        // Delay only after actual Nominatim requests, not for cache hits/misses
-        if (i < pools.length - 1) {
-          await new Promise(resolve => setTimeout(resolve, 1500)); // 1.5 second delay
-        }
+    let coords;
+    if (cachedEntry) {
+      if (cachedEntry.failed) {
+        console.log(`  ✖️  FAIL (cached)         ${pool.name} — "${pool.address}, ${pool.plz}"`);
+        continue;
       }
-
+      coords = { latitude: cachedEntry.latitude, longitude: cachedEntry.longitude };
+      cacheHits++;
+    } else {
+      coords = await geocodeAddress(pool.address, pool.plz);
       if (coords) {
-        pools[i].latitude = coords.latitude;
-        pools[i].longitude = coords.longitude;
-        geocodedCount++;
-
-        const cacheStatus = cachedEntry ? '📦' : '🌐';
-        console.log(`  ${cacheStatus} ${pool.name.substring(0, 35)} -> ${coords.latitude.toFixed(4)}, ${coords.longitude.toFixed(4)} ${cachedEntry ? '(cached)' : '(new)'}`);
+        cacheMisses++;
+        cache.entries[cacheKey] = {
+          address: pool.address,
+          plz: pool.plz,
+          latitude: coords.latitude,
+          longitude: coords.longitude,
+          cachedAt: new Date().toISOString()
+        };
+      } else {
+        cache.entries[cacheKey] = { failed: true, cachedAt: new Date().toISOString() };
+        console.log(`  ✖️  FAIL (Nominatim)      ${pool.name} — "${pool.address}, ${pool.plz}"`);
       }
+      cacheNewEntries++;
+
+      if (i < pools.length - 1) {
+        await new Promise(resolve => setTimeout(resolve, 1500));
+      }
+    }
+
+    if (coords) {
+      pools[i].latitude = coords.latitude;
+      pools[i].longitude = coords.longitude;
+      geocodedCount++;
+
+      const cacheStatus = cachedEntry ? '📦' : '🌐';
+      console.log(`  ${cacheStatus} ${pool.name.substring(0, 35)} -> ${coords.latitude.toFixed(4)}, ${coords.longitude.toFixed(4)} ${cachedEntry ? '(cached)' : '(new)'}`);
     }
   }
 
@@ -396,8 +370,16 @@ async function geocodeCatalog(pools) {
     await geocodeCache.saveCache(cache);
   }
 
+  const missing = pools.filter(p => !p.latitude);
   console.log(`\n✅ Geocoding complete`);
-  console.log(`   🌍 Coordinates: ${geocodedCount} geocoded (${cacheHits} cached, ${cacheMisses} new)`);
+  console.log(`   🌍 Geocoded: ${geocodedCount} (${cacheHits} cached, ${cacheMisses} new)`);
+  if (missing.length > 0) {
+    console.log(`   ⚠️  Not geocoded: ${missing.length}`);
+    for (const p of missing) {
+      const reason = !p.address ? 'no address' : !p.plz ? 'no PLZ' : 'Nominatim failed';
+      console.log(`      - ${p.name}: ${reason}${p.address ? ` ("${p.address}, ${p.plz || '?'}")` : ''}`);
+    }
+  }
 
   return pools;
 }
@@ -484,16 +466,81 @@ async function runGeocodeOnly() {
   }
 }
 
+/**
+ * Re-fetch detail pages only for pools missing address or PLZ, then geocode
+ */
+async function runFillMissing() {
+  try {
+    console.log('🔄 Filling missing addresses...\n');
+    const pools = await loadCatalog();
+
+    if (pools.length === 0) {
+      return { success: false, error: 'No pools found in catalog' };
+    }
+
+    const missing = pools.filter(p => !p.address || !p.plz);
+    console.log(`✅ Loaded ${pools.length} pools — ${missing.length} missing address/PLZ`);
+
+    if (missing.length === 0) {
+      console.log('Nothing to do.');
+      return { success: true, totalPools: pools.length };
+    }
+
+    for (let i = 0; i < pools.length; i++) {
+      const pool = pools[i];
+      if (pool.address && pool.plz) continue;
+
+      try {
+        const response = await axios.get(pool.url, {
+          headers: { 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36' },
+          timeout: 5000
+        });
+
+        const $ = cheerio.load(response.data);
+        const detail = extractAddressFromDetail($);
+        if (detail) {
+          pools[i].address = detail.address;
+          pools[i].plz = detail.plz;
+          pools[i].district = detail.district;
+          console.log(`  ✅ ${pool.name.substring(0, 40)} — ${detail.address}, ${detail.plz}`);
+        } else {
+          console.log(`  ⚠️  ${pool.name.substring(0, 40)} — not found on page`);
+        }
+      } catch (error) {
+        console.error(`  ❌ ${pool.name}:`, error.message);
+      }
+
+      if (i < pools.length - 1) {
+        await new Promise(resolve => setTimeout(resolve, 300));
+      }
+    }
+
+    const geocodedPools = await geocodeCatalog(pools);
+    const saved = await saveCatalog(geocodedPools);
+
+    if (!saved) {
+      return { success: false, error: 'Failed to save catalog' };
+    }
+
+    console.log('\n=== FILL MISSING COMPLETE ===');
+    return { success: true, totalPools: geocodedPools.length };
+  } catch (error) {
+    console.error('Error in fill-missing:', error);
+    return { success: false, error: error.message };
+  }
+}
+
 // Run if executed directly
 if (require.main === module) {
   const args = process.argv.slice(2);
-  const geocodeOnly = args.includes('--geocode-only');
+  const runFn = args.includes('--geocode-only') ? runGeocodeOnly
+              : args.includes('--fill-missing') ? runFillMissing
+              : run;
 
-  const runFn = geocodeOnly ? runGeocodeOnly : run;
   runFn().then(result => {
     console.log(JSON.stringify(result, null, 2));
     process.exit(result.success ? 0 : 1);
   });
 }
 
-module.exports = { run, runGeocodeOnly, fetchPoolCatalog, geocodeCatalog, saveCatalog, loadCatalog };
+module.exports = { run, runGeocodeOnly, runFillMissing, fetchPoolCatalog, geocodeCatalog, saveCatalog, loadCatalog };

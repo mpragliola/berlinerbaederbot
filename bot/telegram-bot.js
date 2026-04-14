@@ -1,4 +1,4 @@
-require('dotenv').config();
+require('dotenv').config({ path: require('path').resolve(__dirname, '../.env') });
 const TelegramBot = require('node-telegram-bot-api');
 
 const BOT_TOKEN = process.env.BOT_TOKEN;
@@ -114,6 +114,47 @@ function safeMd(str) {
   return escMd(str);
 }
 
+const TG_MAX = 4000; // Telegram hard limit is 4096; leave headroom
+
+/**
+ * Split a MarkdownV2 message into chunks that fit within TG_MAX.
+ * Splits on double-newline (pool boundaries) to avoid cutting mid-entry.
+ */
+function splitMessage(text) {
+  const chunks = [];
+  const parts = text.split('\n\n');
+  let current = '';
+
+  for (const part of parts) {
+    const candidate = current ? current + '\n\n' + part : part;
+    if (candidate.length > TG_MAX) {
+      if (current) chunks.push(current);
+      current = part;
+    } else {
+      current = candidate;
+    }
+  }
+  if (current) chunks.push(current);
+  return chunks;
+}
+
+/**
+ * Send a potentially long message, splitting into multiple messages if needed.
+ * opts are passed to every send/edit call.
+ */
+async function sendLong(chatId, text, opts = {}, editMsgId = null) {
+  const chunks = splitMessage(text);
+  for (let i = 0; i < chunks.length; i++) {
+    const isLast = i === chunks.length - 1;
+    const chunkOpts = { ...opts, reply_markup: isLast ? opts.reply_markup : undefined };
+    if (i === 0 && editMsgId) {
+      await bot.editMessageText(chunks[i], { chat_id: chatId, message_id: editMsgId, ...chunkOpts });
+    } else {
+      await bot.sendMessage(chatId, chunks[i], chunkOpts);
+    }
+  }
+}
+
 async function fetchNearby(lat, lon, radius = DEFAULT_RADIUS) {
   const url = `${API_BASE}/api/pools/near?lat=${lat}&lon=${lon}&radius=${radius}`;
   const res  = await fetch(url);
@@ -167,11 +208,7 @@ bot.onText(/\/pools/, async (msg) => {
     }
 
     const body = formatPoolsByStatus(pools);
-
-    await bot.sendMessage(chatId, body, {
-      parse_mode: 'MarkdownV2',
-      disable_web_page_preview: true
-    });
+    await sendLong(chatId, body, { parse_mode: 'MarkdownV2', disable_web_page_preview: true });
   } catch (err) {
     console.error('/pools error:', err);
     await bot.sendMessage(chatId, '❌ Could not reach the pools API\\. Try again later\\.', {
@@ -260,8 +297,7 @@ async function handleNearbySearch(chatId, userId, latitude, longitude, radius, o
 
     const header = escMd(`📍 Pools near you (${data.searchRadius}):\n\n`);
     const body   = openOnly ? pools.map(formatPool).join('\n') : formatPoolsByStatus(pools);
-
-    await bot.sendMessage(chatId, header + body, {
+    await sendLong(chatId, header + body, {
       parse_mode: 'MarkdownV2',
       disable_web_page_preview: true,
       reply_markup: { inline_keyboard: [[{ text: '⬅️ Back to Menu', callback_data: 'back_to_main' }]] }
@@ -327,13 +363,11 @@ bot.on('callback_query', async (query) => {
         });
       } else {
         const body = formatPoolsByStatus(pools);
-        await bot.editMessageText(body, {
-          chat_id: chatId,
-          message_id: fetchMsg.message_id,
+        await sendLong(chatId, body, {
           parse_mode: 'MarkdownV2',
           disable_web_page_preview: true,
           reply_markup: { inline_keyboard: [[{ text: '⬅️ Back to Menu', callback_data: 'back_to_main' }]] }
-        });
+        }, fetchMsg.message_id);
       }
     }
 
