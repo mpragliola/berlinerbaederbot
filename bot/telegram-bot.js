@@ -185,7 +185,8 @@ bot.onText(/\/help/, (msg) => {
     `/near \\[km\\] — pools near your location \\(uses saved location if available\\)\n` +
     `/location — save your location for quick searches\n` +
     `/clear\\-location — forget your saved location\n\n` +
-    `You can also just *send your location* directly at any time\\.`,
+    `You can also just *send your location* directly at any time\\.\n\n` +
+    `_Saved location is kept in memory: it works across all your devices but is lost if the bot restarts\\._`,
     { parse_mode: 'MarkdownV2' }
   );
 });
@@ -459,10 +460,11 @@ bot.on('callback_query', async (query) => {
     else if (data === 'help') {
       await bot.editMessageText(
         'Berliner Bäder Bot\n\n' +
-        '🏊 All Pools — show all pools\n' +
+        '🏊 All Pools — show all pools open right now\n' +
         '📍 Near Me — find pools near your location\n' +
-        '💾 Save Location — remember your location\n' +
-        '❌ Clear Location — forget saved location',
+        '💾 Save Location — remember your location for quick searches\n' +
+        '❌ Clear Location — forget saved location\n\n' +
+        'ℹ️ Saved location is kept in memory: works across all your devices, but lost if the bot restarts.',
         {
           chat_id: chatId,
           message_id: query.message.message_id,
