@@ -319,49 +319,9 @@ async function fetchPoolCatalog() {
       }
     }
 
-    // Geocode addresses to get coordinates (with caching)
-    console.log(`\n🌍 Geocoding addresses (checking cache first)...`);
-    let geocodedCount = 0;
-    let cacheHits = 0;
-    let cacheMisses = 0;
-
-    const cacheStats = await geocodeCache.getStats();
-    console.log(`   Cache has ${cacheStats.totalEntries} entries`);
-
-    for (let i = 0; i < pools.length; i++) {
-      const pool = pools[i];
-
-      if (pool.address && pool.district) {
-        const isCached = await geocodeCache.getCached(pool.address, pool.district);
-
-        const coords = await geocodeAddress(pool.address, pool.district);
-        if (coords) {
-          pools[i].latitude = coords.latitude;
-          pools[i].longitude = coords.longitude;
-          geocodedCount++;
-
-          const cacheStatus = isCached ? '📦' : '🌐';
-          if (isCached) {
-            cacheHits++;
-            console.log(`  ${cacheStatus} ${pool.name.substring(0, 35)} -> ${coords.latitude.toFixed(4)}, ${coords.longitude.toFixed(4)} (cached)`);
-          } else {
-            cacheMisses++;
-            console.log(`  ${cacheStatus} ${pool.name.substring(0, 35)} -> ${coords.latitude.toFixed(4)}, ${coords.longitude.toFixed(4)} (new)`);
-          }
-        }
-
-        // Add delay between Nominatim requests (respectful to free service)
-        // Cache hits are instant, no delay needed for those
-        if (i < pools.length - 1 && !isCached) {
-          await new Promise(resolve => setTimeout(resolve, 1500)); // 1.5 second delay
-        }
-      }
-    }
-
     console.log(`\n✅ Found ${pools.length} pools`);
     console.log(`   📍 Districts: ${districtCount} fetched`);
     console.log(`   🏠 Addresses: ${addressCount} extracted`);
-    console.log(`   🌍 Coordinates: ${geocodedCount} geocoded (${cacheHits} cached, ${cacheMisses} new)`);
 
     // Remove the temporary flag
     pools.forEach(pool => delete pool.needsDistrictFetch);
@@ -369,6 +329,20 @@ async function fetchPoolCatalog() {
     return pools;
   } catch (error) {
     console.error('❌ Error fetching catalog:', error.message);
+    return [];
+  }
+}
+
+/**
+ * Load catalog from file
+ */
+async function loadCatalog() {
+  try {
+    const data = await fs.readFile(DATA_FILE, 'utf-8');
+    const catalog = JSON.parse(data);
+    return catalog.pools || [];
+  } catch (error) {
+    console.error('❌ Error loading catalog:', error.message);
     return [];
   }
 }
@@ -397,12 +371,60 @@ async function saveCatalog(pools) {
 }
 
 /**
+ * Geocode a catalog of pools
+ */
+async function geocodeCatalog(pools) {
+  console.log(`\n🌍 Geocoding addresses (checking cache first)...`);
+  let geocodedCount = 0;
+  let cacheHits = 0;
+  let cacheMisses = 0;
+
+  const cacheStats = await geocodeCache.getStats();
+  console.log(`   Cache has ${cacheStats.totalEntries} entries`);
+
+  for (let i = 0; i < pools.length; i++) {
+    const pool = pools[i];
+
+    if (pool.address && pool.district) {
+      const isCached = await geocodeCache.getCached(pool.address, pool.district);
+
+      const coords = await geocodeAddress(pool.address, pool.district);
+      if (coords) {
+        pools[i].latitude = coords.latitude;
+        pools[i].longitude = coords.longitude;
+        geocodedCount++;
+
+        const cacheStatus = isCached ? '📦' : '🌐';
+        if (isCached) {
+          cacheHits++;
+          console.log(`  ${cacheStatus} ${pool.name.substring(0, 35)} -> ${coords.latitude.toFixed(4)}, ${coords.longitude.toFixed(4)} (cached)`);
+        } else {
+          cacheMisses++;
+          console.log(`  ${cacheStatus} ${pool.name.substring(0, 35)} -> ${coords.latitude.toFixed(4)}, ${coords.longitude.toFixed(4)} (new)`);
+        }
+      }
+
+      // Add delay between Nominatim requests (respectful to free service)
+      // Cache hits are instant, no delay needed for those
+      if (i < pools.length - 1 && !isCached) {
+        await new Promise(resolve => setTimeout(resolve, 1500)); // 1.5 second delay
+      }
+    }
+  }
+
+  console.log(`\n✅ Geocoding complete`);
+  console.log(`   🌍 Coordinates: ${geocodedCount} geocoded (${cacheHits} cached, ${cacheMisses} new)`);
+
+  return pools;
+}
+
+/**
  * Run catalog scraper
  */
 async function run() {
   try {
     console.log('🔄 Starting pool catalog scrape cycle...\n');
-    const pools = await fetchPoolCatalog();
+    let pools = await fetchPoolCatalog();
 
     if (pools.length === 0) {
       return {
@@ -410,6 +432,8 @@ async function run() {
         error: 'No pools found'
       };
     }
+
+    pools = await geocodeCatalog(pools);
 
     const saved = await saveCatalog(pools);
 
@@ -435,12 +459,57 @@ async function run() {
   }
 }
 
+/**
+ * Run geocoding only on existing catalog
+ */
+async function runGeocodeOnly() {
+  try {
+    console.log('🔄 Starting geocoding-only cycle...\n');
+    const pools = await loadCatalog();
+
+    if (pools.length === 0) {
+      return {
+        success: false,
+        error: 'No pools found in catalog'
+      };
+    }
+
+    console.log(`✅ Loaded ${pools.length} pools from catalog`);
+
+    const geocodedPools = await geocodeCatalog(pools);
+
+    const saved = await saveCatalog(geocodedPools);
+
+    if (!saved) {
+      return {
+        success: false,
+        error: 'Failed to save catalog'
+      };
+    }
+
+    console.log('\n=== GEOCODING COMPLETE ===');
+    console.log(`✅ File: ${DATA_FILE}\n`);
+
+    return {
+      success: true,
+      totalPools: geocodedPools.length
+    };
+  } catch (error) {
+    console.error('Error in geocoding:', error);
+    return { success: false, error: error.message };
+  }
+}
+
 // Run if executed directly
 if (require.main === module) {
-  run().then(result => {
+  const args = process.argv.slice(2);
+  const geocodeOnly = args.includes('--geocode-only');
+
+  const runFn = geocodeOnly ? runGeocodeOnly : run;
+  runFn().then(result => {
     console.log(JSON.stringify(result, null, 2));
     process.exit(result.success ? 0 : 1);
   });
 }
 
-module.exports = { run, fetchPoolCatalog, saveCatalog };
+module.exports = { run, runGeocodeOnly, fetchPoolCatalog, geocodeCatalog, saveCatalog, loadCatalog };

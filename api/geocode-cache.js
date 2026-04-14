@@ -1,7 +1,7 @@
 const fs = require('fs').promises;
 const path = require('path');
 
-const CACHE_FILE = path.join(__dirname, 'data', 'geocode-cache.json');
+const CACHE_FILE = path.join(__dirname, '..', 'data', 'geocode-cache.json');
 
 /**
  * Load geocoding cache from disk
