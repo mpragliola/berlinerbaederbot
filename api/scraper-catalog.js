@@ -11,7 +11,7 @@ const geocodeCache = require('./geocode-cache');
  */
 
 const BASE_URL = 'https://www.berlinerbaeder.de';
-const DATA_FILE = path.join(__dirname, 'data', 'pools-catalog.json');
+const DATA_FILE = path.join(__dirname, '..', 'data', 'pools-catalog.json');
 const maxPages = 7; // 67 pools across 7 pages
 
 /**
