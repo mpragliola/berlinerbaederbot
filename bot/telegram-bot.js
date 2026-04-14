@@ -20,10 +20,8 @@ const userLocations = {};
 
 const mainMenu = {
   inline_keyboard: [
-    [{ text: '🏊 All Pools', callback_data: 'pools' }],
-    [{ text: '📍 Near Me', callback_data: 'near_action' }, { text: '📍 Near (Open)', callback_data: 'near_open_action' }],
-    [{ text: '💾 Save Location', callback_data: 'location' }],
-    [{ text: '❌ Clear Location', callback_data: 'clear_location' }],
+    [{ text: '🏊 All Pools', callback_data: 'pools' }, { text: '📍 Near Me', callback_data: 'near_action' }, { text: '📍 Near (Open)', callback_data: 'near_open_action' }],
+    [{ text: '💾 Save Location', callback_data: 'location' },{ text: '❌ Clear Location', callback_data: 'clear_location' }],
     [{ text: '❓ Help', callback_data: 'help' }]
   ]
 };
@@ -111,6 +109,11 @@ function escMd(str) {
   return String(str ?? '').replace(/([_*[\]()~`>#+\-=|{}.!\\])/g, '\\$1');
 }
 
+// Safe message for MarkdownV2 (escapes all special chars)
+function safeMd(str) {
+  return escMd(str);
+}
+
 async function fetchNearby(lat, lon, radius = DEFAULT_RADIUS) {
   const url = `${API_BASE}/api/pools/near?lat=${lat}&lon=${lon}&radius=${radius}`;
   const res  = await fetch(url);
@@ -129,8 +132,8 @@ async function fetchAvailable() {
 bot.onText(/\/start/, (msg) => {
   const name = msg.from?.first_name ?? 'there';
   bot.sendMessage(msg.chat.id,
-    `👋 Hey ${name}\\! I can tell you which Berlin pools are open\\.`,
-    { reply_markup: mainMenu, parse_mode: 'MarkdownV2' }
+    `👋 Hey ${name}! I can tell you which Berlin pools are open.`,
+    { reply_markup: mainMenu }
   );
 });
 
@@ -182,9 +185,8 @@ bot.onText(/\/pools/, async (msg) => {
 bot.onText(/\/location/, (msg) => {
   console.log(`📍 /location command received from user ${msg.from.id}`);
   bot.sendMessage(msg.chat.id,
-    `📍 Share your location and I'll save it for quick searches\\.`,
+    '📍 Share your location and I\'ll save it for quick searches.',
     {
-      parse_mode: 'MarkdownV2',
       reply_markup: {
         keyboard: [[{ text: '📍 Share my location', request_location: true }]],
         resize_keyboard: true,
@@ -250,13 +252,13 @@ async function handleNearbySearch(chatId, userId, latitude, longitude, radius, o
 
     if (!pools.length) {
       await bot.sendMessage(chatId,
-        escMd(`😕 No ${openOnly ? 'open ' : ''}pools found within ${data.searchRadius ?? radius + ' km'}.`),
-        { parse_mode: 'MarkdownV2', reply_markup: { inline_keyboard: [[{ text: '⬅️ Back to Menu', callback_data: 'back_to_main' }]] } }
+        `😕 No ${openOnly ? 'open ' : ''}pools found within ${data.searchRadius ?? radius + ' km'}.`,
+        { reply_markup: { inline_keyboard: [[{ text: '⬅️ Back to Menu', callback_data: 'back_to_main' }]] } }
       );
       return;
     }
 
-    const header = escMd(`📍 Pools near you \\(${data.searchRadius}\\):\n\n`);
+    const header = escMd(`📍 Pools near you (${data.searchRadius}):\n\n`);
     const body   = openOnly ? pools.map(formatPool).join('\n') : formatPoolsByStatus(pools);
 
     await bot.sendMessage(chatId, header + body, {
@@ -266,8 +268,7 @@ async function handleNearbySearch(chatId, userId, latitude, longitude, radius, o
     });
   } catch (err) {
     console.error('nearby search error:', err);
-    await bot.sendMessage(chatId, '❌ Could not reach the pools API\\. Try again later\\.', {
-      parse_mode: 'MarkdownV2',
+    await bot.sendMessage(chatId, '❌ Could not reach the pools API. Try again later.', {
       reply_markup: { inline_keyboard: [[{ text: '⬅️ Back to Menu', callback_data: 'back_to_main' }]] }
     });
   }
@@ -296,9 +297,7 @@ bot.on('location', async (msg) => {
     await handleNearbySearch(chatId, userId, latitude, longitude, radius, openOnly);
   } else {
     console.log(`💾 Just saving location, no search`);
-    await bot.sendMessage(chatId, '✅ Location saved\\! Use the menu to find pools nearby\\.', {
-      parse_mode: 'MarkdownV2',
-      disable_web_page_preview: true,
+    await bot.sendMessage(chatId, '✅ Location saved! Use the menu to find pools nearby.', {
       reply_markup: mainMenu
     });
   }
@@ -321,10 +320,9 @@ bot.on('callback_query', async (query) => {
       const pools = poolData.pools ?? [];
 
       if (!pools.length) {
-        await bot.editMessageText('😴 No pools available right now\\.', {
+        await bot.editMessageText('😴 No pools available right now.', {
           chat_id: chatId,
           message_id: fetchMsg.message_id,
-          parse_mode: 'MarkdownV2',
           reply_markup: { inline_keyboard: [[{ text: '⬅️ Back to Menu', callback_data: 'back_to_main' }]] }
         });
       } else {
@@ -343,16 +341,14 @@ bot.on('callback_query', async (query) => {
       await bot.editMessageText('📍 Select search radius:', {
         chat_id: chatId,
         message_id: query.message.message_id,
-        parse_mode: 'MarkdownV2',
         reply_markup: nearMenu
       });
     }
 
     else if (data === 'near_open_action') {
-      await bot.editMessageText('📍 Select search radius \\(open pools only\\):', {
+      await bot.editMessageText('📍 Select search radius (open pools only):', {
         chat_id: chatId,
         message_id: query.message.message_id,
-        parse_mode: 'MarkdownV2',
         reply_markup: nearOpenMenu
       });
     }
@@ -368,9 +364,8 @@ bot.on('callback_query', async (query) => {
       } else {
         await bot.deleteMessage(chatId, query.message.message_id);
         await bot.sendMessage(chatId,
-          `📍 Send me your location and I'll find open pools within *${radius} km*\\.`,
+          `📍 Send me your location and I'll find open pools within ${radius} km.`,
           {
-            parse_mode: 'MarkdownV2',
             reply_markup: {
               keyboard: [[{ text: '📍 Share my location', request_location: true }]],
               resize_keyboard: true,
@@ -392,9 +387,8 @@ bot.on('callback_query', async (query) => {
       } else {
         await bot.deleteMessage(chatId, query.message.message_id);
         await bot.sendMessage(chatId,
-          `📍 Send me your location and I'll find pools within *${radius} km*\\.`,
+          `📍 Send me your location and I'll find pools within ${radius} km.`,
           {
-            parse_mode: 'MarkdownV2',
             reply_markup: {
               keyboard: [[{ text: '📍 Share my location', request_location: true }]],
               resize_keyboard: true,
@@ -408,9 +402,8 @@ bot.on('callback_query', async (query) => {
     else if (data === 'location') {
       await bot.deleteMessage(chatId, query.message.message_id);
       await bot.sendMessage(chatId,
-        `📍 Share your location and I'll save it for quick searches\\.`,
+        '📍 Share your location and I\'ll save it for quick searches.',
         {
-          parse_mode: 'MarkdownV2',
           reply_markup: {
             keyboard: [[{ text: '📍 Share my location', request_location: true }]],
             resize_keyboard: true,
@@ -422,25 +415,23 @@ bot.on('callback_query', async (query) => {
 
     else if (data === 'clear_location') {
       delete userLocations[userId];
-      await bot.editMessageText('✅ Location cleared\\.', {
+      await bot.editMessageText('✅ Location cleared.', {
         chat_id: chatId,
         message_id: query.message.message_id,
-        parse_mode: 'MarkdownV2',
         reply_markup: mainMenu
       });
     }
 
     else if (data === 'help') {
       await bot.editMessageText(
-        `*Berliner Bäder Bot*\n\n` +
-        `🏊 *All Pools* — show all pools\n` +
-        `📍 *Near Me* — find pools near your location\n` +
-        `💾 *Save Location* — remember your location\n` +
-        `❌ *Clear Location* — forget saved location`,
+        'Berliner Bäder Bot\n\n' +
+        '🏊 All Pools — show all pools\n' +
+        '📍 Near Me — find pools near your location\n' +
+        '💾 Save Location — remember your location\n' +
+        '❌ Clear Location — forget saved location',
         {
           chat_id: chatId,
           message_id: query.message.message_id,
-          parse_mode: 'MarkdownV2',
           reply_markup: mainMenu
         }
       );
@@ -448,7 +439,7 @@ bot.on('callback_query', async (query) => {
 
     else if (data === 'back_to_main') {
       await bot.editMessageText(
-        `👋 Berliner Bäder Bot`,
+        '👋 Berliner Bäder Bot',
         {
           chat_id: chatId,
           message_id: query.message.message_id,
@@ -475,8 +466,8 @@ bot.on('message', (msg) => {
 
   if (msg.location || msg.text?.startsWith('/')) return;
   bot.sendMessage(msg.chat.id,
-    `Use the buttons below to search for pools\\.`,
-    { reply_markup: mainMenu, parse_mode: 'MarkdownV2' }
+    'Use the buttons below to search for pools.',
+    { reply_markup: mainMenu }
   );
 });
 
