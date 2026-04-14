@@ -215,14 +215,14 @@ async function handleNearbySearch(chatId, userId, latitude, longitude, radius) {
 
     if (!pools.length) {
       await bot.sendMessage(chatId,
-        escMd(`😕 No pools found within ${data.searchRadius ?? radius + ' km'}. Try /pools to see all open pools.`),
+        escMd(`😕 No pools found within ${data.searchRadius ?? radius + ' km'}. Try /pools to see all pools.`),
         { parse_mode: 'MarkdownV2' }
       );
       return;
     }
 
-    const header = escMd(`🏊 ${pools.length} pool(s) near you (${data.searchRadius}):\n\n`);
-    const body   = pools.map(formatPool).join('\n');
+    const header = escMd(`📍 Pools near you \\(${data.searchRadius}\\):\n\n`);
+    const body   = formatPoolsByStatus(pools);
 
     await bot.sendMessage(chatId, header + body, {
       parse_mode: 'MarkdownV2',
