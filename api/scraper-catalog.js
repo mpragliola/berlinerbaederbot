@@ -382,11 +382,15 @@ async function geocodeCatalog(pools) {
   const cacheStats = await geocodeCache.getStats();
   console.log(`   Cache has ${cacheStats.totalEntries} entries`);
 
+  // Load cache once to avoid repeated disk reads
+  const cache = await geocodeCache.loadCache();
+
   for (let i = 0; i < pools.length; i++) {
     const pool = pools[i];
 
     if (pool.address && pool.district) {
-      const isCached = await geocodeCache.getCached(pool.address, pool.district);
+      const cacheKey = geocodeCache.getCacheKey(pool.address, pool.district);
+      const isCached = cacheKey && cache.entries[cacheKey];
 
       const coords = await geocodeAddress(pool.address, pool.district);
       if (coords) {
