@@ -1,0 +1,42 @@
+# Dependencies
+node_modules/
+package-lock.json
+yarn.lock
+
+# Environment variables (sensitive)
+.env
+.env.local
+.env.*.local
+
+# Logs and debug files
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+
+# Build and cache
+dist/
+build/
+.cache/
+.eslintcache
+
+# Large data files (if generated)
+data/pools-catalog.json
+data/pools-hours.json
+data/geocode-cache.json
+
+# Git files (not needed for Claude)
+.git/
+.gitignore

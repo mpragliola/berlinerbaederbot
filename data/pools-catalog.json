@@ -1,0 +1,646 @@
+{
+  "lastUpdated": "2026-04-13T14:11:27.629Z",
+  "totalPools": 67,
+  "pools": [
+    {
+      "id": 0,
+      "name": "Kombibad Seestraße - Hallenbad",
+      "url": "https://www.berlinerbaeder.de/baeder/detail/kombibad-seestrasse-hallenbad/",
+      "type": "Hallenbad",
+      "district": "Mitte",
+      "amenities": [],
+      "address": "Seestraße 80",
+      "latitude": 52.5568697,
+      "longitude": 13.3613203
+    },
+    {
+      "id": 1,
+      "name": "Schwimmhalle Baumschulenweg",
+      "url": "https://www.berlinerbaeder.de/baeder/detail/schwimmhalle-baumschulenweg/",
+      "type": "Unknown",
+      "district": "Treptow-Köpenick",
+      "amenities": [],
+      "address": "Neue Krugallee 209",
+      "latitude": 52.4701493,
+      "longitude": 13.4940119
+    },
+    {
+      "id": 2,
+      "name": "Kleine Schwimmhalle Wuhlheide",
+      "url": "https://www.berlinerbaeder.de/baeder/detail/kleine-schwimmhalle-wuhlheide/",
+      "type": "Unknown",
+      "district": "Treptow-Köpenick",
+      "amenities": []
+    },
+    {
+      "id": 3,
+      "name": "Kombibad Gropiusstadt - Hallenbad",
+      "url": "https://www.berlinerbaeder.de/baeder/detail/kombibad-gropiusstadt-hallenbad/",
+      "type": "Hallenbad",
+      "district": "Mitte",
+      "amenities": []
+    },
+    {
+      "id": 4,
+      "name": "Kombibad Spandau Süd - Hallenbad",
+      "url": "https://www.berlinerbaeder.de/baeder/detail/kombibad-spandau-sued-hallenbad/",
+      "type": "Hallenbad",
+      "district": "Spandau",
+      "amenities": []
+    },
+    {
+      "id": 5,
+      "name": "Schwimm- und Sprunghalle im Europasportpark (SSE)",
+      "url": "https://www.berlinerbaeder.de/baeder/detail/schwimm-und-sprunghalle-im-europasportpark-sse/",
+      "type": "Unknown",
+      "district": "Pankow",
+      "amenities": [],
+      "address": "Paul-Heyse-Straße 26",
+      "latitude": 52.5291907,
+      "longitude": 13.4526523
+    },
+    {
+      "id": 6,
+      "name": "Schwimmhalle Allendeviertel",
+      "url": "https://www.berlinerbaeder.de/baeder/detail/schwimmhalle-allendeviertel/",
+      "type": "Unknown",
+      "district": "Treptow-Köpenick",
+      "amenities": [],
+      "address": "Pablo-Neruda-Straße 5",
+      "latitude": 52.4423956,
+      "longitude": 13.5876611
+    },
+    {
+      "id": 7,
+      "name": "Schwimmhalle Anton-Saefkow-Platz",
+      "url": "https://www.berlinerbaeder.de/baeder/detail/schwimmhalle-anton-saefkow-platz/",
+      "type": "Unknown",
+      "district": "Mitte",
+      "amenities": [],
+      "address": "Anton-Saefkow-Platz 1"
+    },
+    {
+      "id": 8,
+      "name": "Schwimmhalle Buch",
+      "url": "https://www.berlinerbaeder.de/baeder/detail/schwimmhalle-buch/",
+      "type": "Unknown",
+      "district": "Pankow",
+      "amenities": [],
+      "address": "Wolfgang-Heinz-Straße 41",
+      "latitude": 52.6287433,
+      "longitude": 13.4918619
+    },
+    {
+      "id": 9,
+      "name": "Schwimmhalle Ernst-Thälmann-Park",
+      "url": "https://www.berlinerbaeder.de/baeder/detail/schwimmhalle-ernst-thaelmann-park/",
+      "type": "Unknown",
+      "district": "Pankow",
+      "amenities": [],
+      "address": "Lilli-Henoch-Straße 20",
+      "latitude": 52.5409713,
+      "longitude": 13.4337812
+    },
+    {
+      "id": 10,
+      "name": "Schwimmhalle Finckensteinallee",
+      "url": "https://www.berlinerbaeder.de/baeder/detail/schwimmhalle-finckensteinallee/",
+      "type": "Unknown",
+      "district": "Mitte",
+      "amenities": [],
+      "address": "Finckensteinallee 73"
+    },
+    {
+      "id": 11,
+      "name": "Schwimmhalle Fischerinsel",
+      "url": "https://www.berlinerbaeder.de/baeder/detail/schwimmhalle-fischerinsel/",
+      "type": "Unknown",
+      "district": "Mitte",
+      "amenities": []
+    },
+    {
+      "id": 12,
+      "name": "Schwimmhalle Helene-Weigel-Platz \"Helmut Behrendt\"",
+      "url": "https://www.berlinerbaeder.de/baeder/detail/schwimmhalle-helene-weigel-platz-helmut-behrendt/",
+      "type": "Unknown",
+      "district": "Marzahn-Hellersdorf",
+      "amenities": [],
+      "address": "Helene-Weigel-Platz 9",
+      "latitude": 52.528063,
+      "longitude": 13.5419449
+    },
+    {
+      "id": 13,
+      "name": "Schwimmhalle Hüttenweg",
+      "url": "https://www.berlinerbaeder.de/baeder/detail/schwimmhalle-huettenweg/",
+      "type": "Unknown",
+      "district": "Steglitz-Zehlendorf",
+      "amenities": []
+    },
+    {
+      "id": 14,
+      "name": "Schwimmhalle Kaulsdorf",
+      "url": "https://www.berlinerbaeder.de/baeder/detail/schwimmhalle-kaulsdorf/",
+      "type": "Unknown",
+      "district": "Mitte",
+      "amenities": [],
+      "address": "Clara-Zetkin-Weg 13"
+    },
+    {
+      "id": 15,
+      "name": "Schwimmhalle Kreuzberg",
+      "url": "https://www.berlinerbaeder.de/baeder/detail/schwimmhalle-kreuzberg/",
+      "type": "Unknown",
+      "district": "Mitte",
+      "amenities": [],
+      "address": "Gitschiner Straße 18"
+    },
+    {
+      "id": 16,
+      "name": "Schwimmhalle Sewanstraße",
+      "url": "https://www.berlinerbaeder.de/baeder/detail/schwimmhalle-sewanstrasse/",
+      "type": "Unknown",
+      "district": "Lichtenberg",
+      "amenities": [],
+      "address": "Sewanstraße 229",
+      "latitude": 52.4957537,
+      "longitude": 13.5160289
+    },
+    {
+      "id": 17,
+      "name": "Schwimmhalle Thomas-Mann-Straße",
+      "url": "https://www.berlinerbaeder.de/baeder/detail/schwimmhalle-thomas-mann-strasse/",
+      "type": "Unknown",
+      "district": "Pankow",
+      "amenities": [],
+      "address": "Thomas-Mann-Straße 3",
+      "latitude": 52.543105,
+      "longitude": 13.4432376
+    },
+    {
+      "id": 18,
+      "name": "Schwimmhalle Zingster Straße",
+      "url": "https://www.berlinerbaeder.de/baeder/detail/schwimmhalle-zingster-strasse/",
+      "type": "Unknown",
+      "district": "Mitte",
+      "amenities": [],
+      "address": "Zingster Straße 16",
+      "latitude": 52.5509448,
+      "longitude": 13.3886488
+    },
+    {
+      "id": 19,
+      "name": "Sport- und Lehrschwimmhalle Schöneberg",
+      "url": "https://www.berlinerbaeder.de/baeder/detail/sport-und-lehrschwimmhalle-schoeneberg/",
+      "type": "Unknown",
+      "district": "Tempelhof-Schöneberg",
+      "amenities": []
+    },
+    {
+      "id": 20,
+      "name": "Stadtbad Charlottenburg - Alte Halle",
+      "url": "https://www.berlinerbaeder.de/baeder/detail/stadtbad-charlottenburg-alte-halle/",
+      "type": "Unknown",
+      "district": "Mitte",
+      "amenities": [],
+      "address": "Krumme Straße 10",
+      "latitude": 52.5531603,
+      "longitude": 13.3974108
+    },
+    {
+      "id": 21,
+      "name": "Stadtbad Lankwitz",
+      "url": "https://www.berlinerbaeder.de/baeder/detail/stadtbad-lankwitz/",
+      "type": "Unknown",
+      "district": "Steglitz-Zehlendorf",
+      "amenities": [],
+      "address": "Leonorenstraße 39",
+      "latitude": 52.4419059,
+      "longitude": 13.3434704
+    },
+    {
+      "id": 22,
+      "name": "Stadtbad Märkisches Viertel",
+      "url": "https://www.berlinerbaeder.de/baeder/detail/stadtbad-maerkisches-viertel/",
+      "type": "Unknown",
+      "district": "Mitte",
+      "amenities": []
+    },
+    {
+      "id": 23,
+      "name": "Stadtbad Mitte \"James Simon\"",
+      "url": "https://www.berlinerbaeder.de/baeder/detail/stadtbad-mitte-james-simon/",
+      "type": "Unknown",
+      "district": "Mitte",
+      "amenities": []
+    },
+    {
+      "id": 24,
+      "name": "Stadtbad Neukölln",
+      "url": "https://www.berlinerbaeder.de/baeder/detail/stadtbad-neukoelln/",
+      "type": "Unknown",
+      "district": "Neukölln",
+      "amenities": []
+    },
+    {
+      "id": 25,
+      "name": "Stadtbad Spandau Nord",
+      "url": "https://www.berlinerbaeder.de/baeder/detail/stadtbad-spandau-nord/",
+      "type": "Unknown",
+      "district": "Spandau",
+      "amenities": []
+    },
+    {
+      "id": 26,
+      "name": "Stadtbad Tempelhof",
+      "url": "https://www.berlinerbaeder.de/baeder/detail/stadtbad-tempelhof/",
+      "type": "Unknown",
+      "district": "Tempelhof-Schöneberg",
+      "amenities": []
+    },
+    {
+      "id": 27,
+      "name": "Stadtbad Tiergarten",
+      "url": "https://www.berlinerbaeder.de/baeder/detail/stadtbad-tiergarten/",
+      "type": "Unknown",
+      "district": "Mitte",
+      "amenities": [],
+      "address": "Seydlitzstraße 7",
+      "latitude": 52.5274285,
+      "longitude": 13.3596206
+    },
+    {
+      "id": 28,
+      "name": "Stadtbad Wilmersdorf I",
+      "url": "https://www.berlinerbaeder.de/baeder/detail/stadtbad-wilmersdorf-i/",
+      "type": "Unknown",
+      "district": "Charlottenburg-Wilmersdorf",
+      "amenities": [],
+      "address": "Mecklenburgische Straße 80",
+      "latitude": 52.480529,
+      "longitude": 13.314373
+    },
+    {
+      "id": 29,
+      "name": "Stadtbad Wilmersdorf II",
+      "url": "https://www.berlinerbaeder.de/baeder/detail/stadtbad-wilmersdorf-ii/",
+      "type": "Unknown",
+      "district": "Charlottenburg-Wilmersdorf",
+      "amenities": [],
+      "address": "Fritz-Wildung-Straße 7",
+      "latitude": 52.4859422,
+      "longitude": 13.301321
+    },
+    {
+      "id": 30,
+      "name": "Forumbad Olympiastadion",
+      "url": "https://www.berlinerbaeder.de/baeder/detail/schwimmhalle-forumbad-olympiastadion/",
+      "type": "Unknown",
+      "district": "Charlottenburg-Wilmersdorf",
+      "amenities": []
+    },
+    {
+      "id": 31,
+      "name": "Sportforum Hohenschönhausen",
+      "url": "https://www.berlinerbaeder.de/baeder/detail/sportforum-hohenschoenhausen/",
+      "type": "Unknown",
+      "district": "Lichtenberg",
+      "amenities": [],
+      "address": "Fritz-Lesch-Straße 24",
+      "latitude": 52.540977,
+      "longitude": 13.4730012
+    },
+    {
+      "id": 32,
+      "name": "Kinderbad Marzahn (Platsch)",
+      "url": "https://www.berlinerbaeder.de/baeder/detail/kinderbad-marzahn-platsch/",
+      "type": "Unknown",
+      "district": "Marzahn-Hellersdorf",
+      "amenities": [],
+      "address": "Max-Herrmann-Straße 7",
+      "latitude": 52.5544474,
+      "longitude": 13.5658402
+    },
+    {
+      "id": 33,
+      "name": "Kinderbad Monbijou",
+      "url": "https://www.berlinerbaeder.de/baeder/detail/kinderbad-monbijou/",
+      "type": "Unknown",
+      "district": "Mitte",
+      "amenities": [],
+      "address": "Oranienburger Straße 78",
+      "latitude": 52.5227642,
+      "longitude": 13.3962221
+    },
+    {
+      "id": 34,
+      "name": "Kombibad Gropiusstadt - Sommerbad",
+      "url": "https://www.berlinerbaeder.de/baeder/detail/kombibad-gropiusstadt-sommerbad/",
+      "type": "Kombibad",
+      "district": "Mitte",
+      "amenities": []
+    },
+    {
+      "id": 35,
+      "name": "Kombibad Seestraße - Sommerbad",
+      "url": "https://www.berlinerbaeder.de/baeder/detail/kombibad-seestrasse-sommerbad/",
+      "type": "Kombibad",
+      "district": "Mitte",
+      "amenities": [],
+      "address": "Seestraße 80",
+      "latitude": 52.5568697,
+      "longitude": 13.3613203
+    },
+    {
+      "id": 36,
+      "name": "Sommerbad am Insulaner",
+      "url": "https://www.berlinerbaeder.de/baeder/detail/sommerbad-am-insulaner/",
+      "type": "Unknown",
+      "district": "Steglitz-Zehlendorf",
+      "amenities": []
+    },
+    {
+      "id": 37,
+      "name": "Sommerbad Humboldthain",
+      "url": "https://www.berlinerbaeder.de/baeder/detail/sommerbad-humboldthain/",
+      "type": "Unknown",
+      "district": "Mitte",
+      "amenities": [],
+      "address": "Wiesenstraße 1",
+      "latitude": 52.5455944,
+      "longitude": 13.3820756
+    },
+    {
+      "id": 38,
+      "name": "Sommerbad Kreuzberg",
+      "url": "https://www.berlinerbaeder.de/baeder/detail/sommerbad-kreuzberg/",
+      "type": "Unknown",
+      "district": "Friedrichshain-Kreuzberg",
+      "amenities": []
+    },
+    {
+      "id": 39,
+      "name": "Sommerbad Mariendorf",
+      "url": "https://www.berlinerbaeder.de/baeder/detail/sommerbad-mariendorf/",
+      "type": "Unknown",
+      "district": "Tempelhof-Schöneberg",
+      "amenities": [],
+      "address": "Rixdorfer Straße 130",
+      "latitude": 52.4429333,
+      "longitude": 13.3970377
+    },
+    {
+      "id": 40,
+      "name": "Sommerbad Neukölln",
+      "url": "https://www.berlinerbaeder.de/baeder/detail/sommerbad-neukoelln/",
+      "type": "Unknown",
+      "district": "Neukölln",
+      "amenities": []
+    },
+    {
+      "id": 41,
+      "name": "Sommerbad Olympiastadion",
+      "url": "https://www.berlinerbaeder.de/baeder/detail/sommerbad-olympiastadion/",
+      "type": "Unknown",
+      "district": "Charlottenburg-Wilmersdorf",
+      "amenities": [],
+      "address": "Olympischer Platz 3",
+      "latitude": 52.5145846,
+      "longitude": 13.2398144
+    },
+    {
+      "id": 42,
+      "name": "Sommerbad Pankow",
+      "url": "https://www.berlinerbaeder.de/baeder/detail/sommerbad-pankow/",
+      "type": "Unknown",
+      "district": "Pankow",
+      "amenities": []
+    },
+    {
+      "id": 43,
+      "name": "Sommerbad Staaken-West",
+      "url": "https://www.berlinerbaeder.de/baeder/detail/sommerbad-staaken-west/",
+      "type": "Unknown",
+      "district": "Spandau",
+      "amenities": []
+    },
+    {
+      "id": 44,
+      "name": "Sommerbad Wilmersdorf",
+      "url": "https://www.berlinerbaeder.de/baeder/detail/sommerbad-wilmersdorf/",
+      "type": "Unknown",
+      "district": "Charlottenburg-Wilmersdorf",
+      "amenities": [],
+      "address": "Forckenbeckstraße 14",
+      "latitude": 52.4817945,
+      "longitude": 13.3022006
+    },
+    {
+      "id": 45,
+      "name": "Sommerbad Wuhlheide",
+      "url": "https://www.berlinerbaeder.de/baeder/detail/sommerbad-wuhlheide/",
+      "type": "Unknown",
+      "district": "Treptow-Köpenick",
+      "amenities": [],
+      "address": "Treskowallee 211",
+      "latitude": 52.4698699,
+      "longitude": 13.5181787
+    },
+    {
+      "id": 46,
+      "name": "Sportbad Britz",
+      "url": "https://www.berlinerbaeder.de/baeder/detail/sportbad-britz/",
+      "type": "Unknown",
+      "district": "Neukölln",
+      "amenities": [],
+      "address": "Kleiberweg 3",
+      "latitude": 52.440424,
+      "longitude": 13.4742855
+    },
+    {
+      "id": 47,
+      "name": "Strandbad Friedrichshagen",
+      "url": "https://www.berlinerbaeder.de/baeder/detail/strandbad-friedrichshagen/",
+      "type": "Strandbad",
+      "district": "Treptow-Köpenick",
+      "amenities": []
+    },
+    {
+      "id": 48,
+      "name": "Strandbad Grünau",
+      "url": "https://www.berlinerbaeder.de/baeder/detail/strandbad-gruenau/",
+      "type": "Strandbad",
+      "district": "Treptow-Köpenick",
+      "amenities": []
+    },
+    {
+      "id": 49,
+      "name": "Strandbad Jungfernheide",
+      "url": "https://www.berlinerbaeder.de/baeder/detail/strandbad-jungfernheide/",
+      "type": "Strandbad",
+      "district": "Mitte",
+      "amenities": [],
+      "address": "Jungfernheideweg 60"
+    },
+    {
+      "id": 50,
+      "name": "Strandbad Lübars",
+      "url": "https://www.berlinerbaeder.de/baeder/detail/strandbad-luebars/",
+      "type": "Strandbad",
+      "district": "Mitte",
+      "amenities": []
+    },
+    {
+      "id": 51,
+      "name": "Strandbad Orankesee",
+      "url": "https://www.berlinerbaeder.de/baeder/detail/strandbad-orankesee/",
+      "type": "Strandbad",
+      "district": "Lichtenberg",
+      "amenities": [],
+      "address": "Gertrudstraße 7",
+      "latitude": 52.5501583,
+      "longitude": 13.4841374
+    },
+    {
+      "id": 52,
+      "name": "Strandbad Plötzensee",
+      "url": "https://www.berlinerbaeder.de/baeder/detail/strandbad-ploetzensee/",
+      "type": "Strandbad",
+      "district": "Mitte",
+      "amenities": []
+    },
+    {
+      "id": 53,
+      "name": "Strandbad Tegeler See",
+      "url": "https://www.berlinerbaeder.de/baeder/detail/strandbad-tegeler-see/",
+      "type": "Strandbad",
+      "district": "Mitte",
+      "amenities": [],
+      "address": "Schwarzer Weg 95",
+      "latitude": 52.5292076,
+      "longitude": 13.3775049
+    },
+    {
+      "id": 54,
+      "name": "Strandbad Wannsee",
+      "url": "https://www.berlinerbaeder.de/baeder/detail/strandbad-wannsee/",
+      "type": "Strandbad",
+      "district": "Steglitz-Zehlendorf",
+      "amenities": [],
+      "address": "Wannseebadweg 25",
+      "latitude": 52.4380967,
+      "longitude": 13.1794438
+    },
+    {
+      "id": 55,
+      "name": "Strandbad Weißensee",
+      "url": "https://www.berlinerbaeder.de/baeder/detail/strandbad-weissensee/",
+      "type": "Strandbad",
+      "district": "Mitte",
+      "amenities": [],
+      "address": "Berliner Allee 155"
+    },
+    {
+      "id": 56,
+      "name": "Strandbad Wendenschloss",
+      "url": "https://www.berlinerbaeder.de/baeder/detail/strandbad-wendenschloss/",
+      "type": "Strandbad",
+      "district": "Treptow-Köpenick",
+      "amenities": []
+    },
+    {
+      "id": 57,
+      "name": "Strandbad Halensee",
+      "url": "https://www.berlinerbaeder.de/baeder/detail/strandbad-halensee/",
+      "type": "Strandbad",
+      "district": "Charlottenburg-Wilmersdorf",
+      "amenities": []
+    },
+    {
+      "id": 58,
+      "name": "Kombibad Mariendorf - Hallenbad",
+      "url": "https://www.berlinerbaeder.de/baeder/detail/kombibad-mariendorf-hallenbad/",
+      "type": "Hallenbad",
+      "district": "Mitte",
+      "amenities": [],
+      "address": "Ankogelweg 95"
+    },
+    {
+      "id": 59,
+      "name": "Kombibad Mariendorf - Sommerbad",
+      "url": "https://www.berlinerbaeder.de/baeder/detail/kombibad-mariendorf-sommerbad/",
+      "type": "Kombibad",
+      "district": "Mitte",
+      "amenities": [],
+      "address": "Ankogelweg 95"
+    },
+    {
+      "id": 60,
+      "name": "Kombibad Spandau Süd - Sommerbad",
+      "url": "https://www.berlinerbaeder.de/baeder/detail/kombibad-spandau-sued-sommerbad/",
+      "type": "Kombibad",
+      "district": "Spandau",
+      "amenities": []
+    },
+    {
+      "id": 61,
+      "name": "Paracelsus-Bad",
+      "url": "https://www.berlinerbaeder.de/baeder/detail/paracelsus-bad/",
+      "type": "Unknown",
+      "district": "Reinickendorf",
+      "amenities": []
+    },
+    {
+      "id": 62,
+      "name": "Schwimmhalle Holzmarktstraße (Neubauvorhaben)",
+      "url": "https://www.berlinerbaeder.de/baeder/detail/schwimmhalle-holzmarktstrasse/",
+      "type": "Unknown",
+      "district": "Friedrichshain-Kreuzberg",
+      "amenities": [],
+      "address": "Holzmarktstraße 51",
+      "latitude": 52.5130325,
+      "longitude": 13.4262094
+    },
+    {
+      "id": 63,
+      "name": "Stadtbad Charlottenburg - Neue Halle",
+      "url": "https://www.berlinerbaeder.de/baeder/detail/stadtbad-charlottenburg-neue-halle/",
+      "type": "Unknown",
+      "district": "Charlottenburg-Wilmersdorf",
+      "amenities": [],
+      "address": "Krumme Straße 9",
+      "latitude": 52.5148369,
+      "longitude": 13.3088733
+    },
+    {
+      "id": 64,
+      "name": "Stadtbad Schöneberg \"Hans Rosenthal\"",
+      "url": "https://www.berlinerbaeder.de/baeder/detail/stadtbad-schoeneberg-hans-rosenthal/",
+      "type": "Unknown",
+      "district": "Mitte",
+      "amenities": [],
+      "address": "Hauptstraße 39"
+    },
+    {
+      "id": 65,
+      "name": "Wellenbad am Spreewaldplatz",
+      "url": "https://www.berlinerbaeder.de/baeder/detail/wellenbad-am-spreewaldplatz/",
+      "type": "Unknown",
+      "district": "Friedrichshain-Kreuzberg",
+      "amenities": [],
+      "address": "Wiener Straße 59H",
+      "latitude": 52.4980015,
+      "longitude": 13.4322837
+    },
+    {
+      "id": 66,
+      "name": "Saunalandschaft und Sommerbad Lichterfelde (Spucki)",
+      "url": "https://www.berlinerbaeder.de/baeder/detail/saunalandschaft-und-sommerbad-lichterfelde-spucki/",
+      "type": "Unknown",
+      "district": "Steglitz-Zehlendorf",
+      "amenities": [
+        "Sauna"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,1745 @@
+{
+  "lastUpdated": "2026-04-13T17:54:26.464Z",
+  "totalPools": 67,
+  "hours": {
+    "0": {
+      "id": 0,
+      "name": "Kombibad Seestraße - Hallenbad",
+      "openingHours": {
+        "monday": {
+          "open": "12:00",
+          "close": "15:45"
+        },
+        "tuesday": {
+          "open": "08:00",
+          "close": "15:45"
+        },
+        "wednesday": {
+          "open": "08:00",
+          "close": "15:45"
+        },
+        "thursday": {
+          "open": "08:00",
+          "close": "15:45"
+        },
+        "friday": {
+          "open": "08:00",
+          "close": "15:45"
+        },
+        "saturday": {
+          "open": "10:00",
+          "close": "18:00"
+        },
+        "sunday": {
+          "open": "10:00",
+          "close": "18:00"
+        }
+      },
+      "availability": {
+        "status": "unknown",
+        "lastChecked": "2026-04-13T17:53:29.347Z"
+      }
+    },
+    "1": {
+      "id": 1,
+      "name": "Schwimmhalle Baumschulenweg",
+      "openingHours": {
+        "monday": {
+          "open": "06:30",
+          "close": "08:00"
+        },
+        "tuesday": {
+          "open": "06:30",
+          "close": "08:00"
+        },
+        "wednesday": {
+          "open": "07:00",
+          "close": "22:00"
+        },
+        "thursday": {
+          "open": "10:00",
+          "close": "22:00"
+        },
+        "friday": {
+          "open": "06:30",
+          "close": "08:00"
+        },
+        "saturday": {
+          "open": "10:00",
+          "close": "15:30"
+        },
+        "sunday": null
+      },
+      "availability": {
+        "status": "closed",
+        "lastChecked": "2026-04-13T17:53:30.206Z"
+      }
+    },
+    "2": {
+      "id": 2,
+      "name": "Kleine Schwimmhalle Wuhlheide",
+      "openingHours": {
+        "monday": {
+          "open": "09:00",
+          "close": "12:00"
+        },
+        "tuesday": {
+          "open": "09:00",
+          "close": "14:00"
+        },
+        "wednesday": {
+          "open": "09:00",
+          "close": "15:30"
+        },
+        "thursday": {
+          "open": "12:30",
+          "close": "14:00"
+        },
+        "friday": {
+          "open": "09:00",
+          "close": "16:30"
+        },
+        "saturday": {
+          "open": "10:00",
+          "close": "17:00"
+        },
+        "sunday": {
+          "open": "10:00",
+          "close": "17:00"
+        }
+      },
+      "availability": {
+        "status": "unknown",
+        "lastChecked": "2026-04-13T17:53:31.099Z"
+      }
+    },
+    "3": {
+      "id": 3,
+      "name": "Kombibad Gropiusstadt - Hallenbad",
+      "openingHours": {
+        "monday": {
+          "open": "06:30",
+          "close": "08:15"
+        },
+        "tuesday": {
+          "open": "06:30",
+          "close": "08:15"
+        },
+        "wednesday": {
+          "open": "06:30",
+          "close": "08:15"
+        },
+        "thursday": {
+          "open": "06:30",
+          "close": "08:15"
+        },
+        "friday": {
+          "open": "10:00",
+          "close": "14:00"
+        },
+        "saturday": {
+          "open": "06:30",
+          "close": "16:00"
+        },
+        "sunday": {
+          "open": "06:30",
+          "close": "08:00"
+        }
+      },
+      "availability": {
+        "status": "unknown",
+        "lastChecked": "2026-04-13T17:53:31.732Z"
+      }
+    },
+    "4": {
+      "id": 4,
+      "name": "Kombibad Spandau Süd - Hallenbad",
+      "openingHours": {
+        "monday": {
+          "open": "12:30",
+          "close": "22:00"
+        },
+        "tuesday": {
+          "open": "06:30",
+          "close": "08:00"
+        },
+        "wednesday": {
+          "open": "06:30",
+          "close": "08:00"
+        },
+        "thursday": {
+          "open": "06:30",
+          "close": "08:00"
+        },
+        "friday": {
+          "open": "06:30",
+          "close": "17:30"
+        },
+        "saturday": {
+          "open": "06:30",
+          "close": "08:00"
+        },
+        "sunday": {
+          "open": "06:30",
+          "close": "13:00"
+        }
+      },
+      "availability": {
+        "status": "closed",
+        "lastChecked": "2026-04-13T17:53:32.240Z"
+      }
+    },
+    "5": {
+      "id": 5,
+      "name": "Schwimm- und Sprunghalle im Europasportpark (SSE)",
+      "openingHours": {
+        "monday": null,
+        "tuesday": {
+          "open": "06:30",
+          "close": "22:30"
+        },
+        "wednesday": {
+          "open": "06:30",
+          "close": "20:00"
+        },
+        "thursday": {
+          "open": "06:30",
+          "close": "22:30"
+        },
+        "friday": {
+          "open": "10:00",
+          "close": "18:00"
+        },
+        "saturday": {
+          "open": "10:00",
+          "close": "18:00"
+        },
+        "sunday": {
+          "open": "10:00",
+          "close": "18:00"
+        }
+      },
+      "availability": {
+        "status": "closed",
+        "lastChecked": "2026-04-13T17:53:32.805Z"
+      }
+    },
+    "6": {
+      "id": 6,
+      "name": "Schwimmhalle Allendeviertel",
+      "openingHours": {
+        "monday": {
+          "open": "06:30",
+          "close": "08:00"
+        },
+        "tuesday": {
+          "open": "06:30",
+          "close": "08:00"
+        },
+        "wednesday": {
+          "open": "11:00",
+          "close": "12:00"
+        },
+        "thursday": {
+          "open": "06:30",
+          "close": "08:00"
+        },
+        "friday": {
+          "open": "06:30",
+          "close": "08:00"
+        },
+        "saturday": {
+          "open": "10:00",
+          "close": "18:30"
+        },
+        "sunday": null
+      },
+      "availability": {
+        "status": "closed",
+        "lastChecked": "2026-04-13T17:53:33.660Z"
+      }
+    },
+    "7": {
+      "id": 7,
+      "name": "Schwimmhalle Anton-Saefkow-Platz",
+      "openingHours": {
+        "monday": {
+          "open": "06:30",
+          "close": "08:00"
+        },
+        "tuesday": {
+          "open": "07:00",
+          "close": "22:00"
+        },
+        "wednesday": {
+          "open": "10:00",
+          "close": "17:00"
+        },
+        "thursday": {
+          "open": "06:30",
+          "close": "08:00"
+        },
+        "friday": {
+          "open": "06:30",
+          "close": "08:00"
+        },
+        "saturday": {
+          "open": "10:00",
+          "close": "17:00"
+        },
+        "sunday": null
+      },
+      "availability": {
+        "status": "closed",
+        "lastChecked": "2026-04-13T17:53:34.261Z"
+      }
+    },
+    "8": {
+      "id": 8,
+      "name": "Schwimmhalle Buch",
+      "openingHours": {
+        "monday": {
+          "open": "06:30",
+          "close": "10:45"
+        },
+        "tuesday": {
+          "open": "06:30",
+          "close": "08:00"
+        },
+        "wednesday": {
+          "open": "10:00",
+          "close": "14:30"
+        },
+        "thursday": {
+          "open": "06:30",
+          "close": "08:00"
+        },
+        "friday": {
+          "open": "06:30",
+          "close": "08:00"
+        },
+        "saturday": {
+          "open": "10:00",
+          "close": "17:00"
+        },
+        "sunday": {
+          "open": "10:00",
+          "close": "17:00"
+        }
+      },
+      "availability": {
+        "status": "closed",
+        "lastChecked": "2026-04-13T17:53:35.202Z"
+      }
+    },
+    "9": {
+      "id": 9,
+      "name": "Schwimmhalle Ernst-Thälmann-Park",
+      "openingHours": {
+        "monday": null,
+        "tuesday": {
+          "open": "06:30",
+          "close": "11:00"
+        },
+        "wednesday": {
+          "open": "10:00",
+          "close": "15:00"
+        },
+        "thursday": {
+          "open": "06:30",
+          "close": "15:00"
+        },
+        "friday": {
+          "open": "06:30",
+          "close": "22:00"
+        },
+        "saturday": {
+          "open": "10:00",
+          "close": "17:00"
+        },
+        "sunday": {
+          "open": "10:00",
+          "close": "17:00"
+        }
+      },
+      "availability": {
+        "status": "closed",
+        "lastChecked": "2026-04-13T17:53:35.819Z"
+      }
+    },
+    "10": {
+      "id": 10,
+      "name": "Schwimmhalle Finckensteinallee",
+      "openingHours": {
+        "monday": {
+          "open": "06:30",
+          "close": "08:00"
+        },
+        "tuesday": {
+          "open": "06:30",
+          "close": "08:00"
+        },
+        "wednesday": {
+          "open": "13:00",
+          "close": "22:00"
+        },
+        "thursday": {
+          "open": "06:30",
+          "close": "08:00"
+        },
+        "friday": {
+          "open": "06:30",
+          "close": "08:00"
+        },
+        "saturday": {
+          "open": "08:00",
+          "close": "09:00"
+        },
+        "sunday": {
+          "open": "08:00",
+          "close": "16:00"
+        }
+      },
+      "availability": {
+        "status": "closed",
+        "lastChecked": "2026-04-13T17:53:38.073Z"
+      }
+    },
+    "11": {
+      "id": 11,
+      "name": "Schwimmhalle Fischerinsel",
+      "openingHours": {
+        "monday": {
+          "open": "06:30",
+          "close": "08:00"
+        },
+        "tuesday": {
+          "open": "06:30",
+          "close": "08:00"
+        },
+        "wednesday": {
+          "open": "10:00",
+          "close": "22:00"
+        },
+        "thursday": {
+          "open": "06:30",
+          "close": "08:00"
+        },
+        "friday": {
+          "open": "06:30",
+          "close": "08:00"
+        },
+        "saturday": {
+          "open": "10:30",
+          "close": "17:30"
+        },
+        "sunday": {
+          "open": "10:00",
+          "close": "17:00"
+        }
+      },
+      "availability": {
+        "status": "closed",
+        "lastChecked": "2026-04-13T17:53:38.914Z"
+      }
+    },
+    "12": {
+      "id": 12,
+      "name": "Schwimmhalle Helene-Weigel-Platz \"Helmut Behrendt\"",
+      "openingHours": {
+        "monday": {
+          "open": "06:30",
+          "close": "07:00"
+        },
+        "tuesday": {
+          "open": "06:30",
+          "close": "07:00"
+        },
+        "wednesday": {
+          "open": "06:30",
+          "close": "07:00"
+        },
+        "thursday": {
+          "open": "06:30",
+          "close": "07:00"
+        },
+        "friday": {
+          "open": "07:30",
+          "close": "14:30"
+        },
+        "saturday": null,
+        "sunday": null
+      },
+      "availability": {
+        "status": "closed",
+        "lastChecked": "2026-04-13T17:53:39.805Z"
+      }
+    },
+    "13": {
+      "id": 13,
+      "name": "Schwimmhalle Hüttenweg",
+      "openingHours": {
+        "monday": {
+          "open": "06:30",
+          "close": "08:00"
+        },
+        "tuesday": {
+          "open": "06:30",
+          "close": "08:00"
+        },
+        "wednesday": {
+          "open": "12:30",
+          "close": "15:00"
+        },
+        "thursday": {
+          "open": "06:30",
+          "close": "08:00"
+        },
+        "friday": {
+          "open": "06:30",
+          "close": "08:00"
+        },
+        "saturday": {
+          "open": "07:30",
+          "close": "14:00"
+        },
+        "sunday": {
+          "open": "10:00",
+          "close": "17:00"
+        }
+      },
+      "availability": {
+        "status": "closed",
+        "lastChecked": "2026-04-13T17:53:40.610Z"
+      }
+    },
+    "14": {
+      "id": 14,
+      "name": "Schwimmhalle Kaulsdorf",
+      "openingHours": {
+        "monday": {
+          "open": "06:30",
+          "close": "08:00"
+        },
+        "tuesday": {
+          "open": "06:30",
+          "close": "08:00"
+        },
+        "wednesday": {
+          "open": "10:00",
+          "close": "15:00"
+        },
+        "thursday": {
+          "open": "06:30",
+          "close": "09:15"
+        },
+        "friday": {
+          "open": "06:30",
+          "close": "08:00"
+        },
+        "saturday": {
+          "open": "10:00",
+          "close": "14:00"
+        },
+        "sunday": {
+          "open": "10:00",
+          "close": "14:00"
+        }
+      },
+      "availability": {
+        "status": "closed",
+        "lastChecked": "2026-04-13T17:53:41.216Z"
+      }
+    },
+    "15": {
+      "id": 15,
+      "name": "Schwimmhalle Kreuzberg",
+      "openingHours": {
+        "monday": {
+          "open": "06:30",
+          "close": "08:00"
+        },
+        "tuesday": {
+          "open": "06:30",
+          "close": "08:00"
+        },
+        "wednesday": {
+          "open": "06:30",
+          "close": "08:00"
+        },
+        "thursday": {
+          "open": "07:00",
+          "close": "16:00"
+        },
+        "friday": {
+          "open": "06:30",
+          "close": "08:00"
+        },
+        "saturday": {
+          "open": "10:00",
+          "close": "17:00"
+        },
+        "sunday": {
+          "open": "10:00",
+          "close": "17:00"
+        }
+      },
+      "availability": {
+        "status": "unknown",
+        "lastChecked": "2026-04-13T17:53:42.012Z"
+      }
+    },
+    "16": {
+      "id": 16,
+      "name": "Schwimmhalle Sewanstraße",
+      "openingHours": {
+        "monday": {
+          "open": "06:30",
+          "close": "08:00"
+        },
+        "tuesday": {
+          "open": "06:30",
+          "close": "08:00"
+        },
+        "wednesday": {
+          "open": "10:00",
+          "close": "22:00"
+        },
+        "thursday": {
+          "open": "06:30",
+          "close": "08:00"
+        },
+        "friday": {
+          "open": "07:00",
+          "close": "18:00"
+        },
+        "saturday": {
+          "open": "10:00",
+          "close": "17:00"
+        },
+        "sunday": {
+          "open": "10:00",
+          "close": "17:00"
+        }
+      },
+      "availability": {
+        "status": "closed",
+        "lastChecked": "2026-04-13T17:53:42.530Z"
+      }
+    },
+    "17": {
+      "id": 17,
+      "name": "Schwimmhalle Thomas-Mann-Straße",
+      "openingHours": {
+        "monday": {
+          "open": "11:00",
+          "close": "22:00"
+        },
+        "tuesday": {
+          "open": "06:30",
+          "close": "08:00"
+        },
+        "wednesday": {
+          "open": "06:30",
+          "close": "08:00"
+        },
+        "thursday": {
+          "open": "06:30",
+          "close": "08:00"
+        },
+        "friday": {
+          "open": "06:30",
+          "close": "08:00"
+        },
+        "saturday": {
+          "open": "10:00",
+          "close": "16:00"
+        },
+        "sunday": null
+      },
+      "availability": {
+        "status": "closed",
+        "lastChecked": "2026-04-13T17:53:43.027Z"
+      }
+    },
+    "18": {
+      "id": 18,
+      "name": "Schwimmhalle Zingster Straße",
+      "openingHours": {
+        "monday": {
+          "open": "06:30",
+          "close": "08:00"
+        },
+        "tuesday": {
+          "open": "06:30",
+          "close": "08:00"
+        },
+        "wednesday": {
+          "open": "10:00",
+          "close": "16:00"
+        },
+        "thursday": {
+          "open": "06:30",
+          "close": "08:00"
+        },
+        "friday": {
+          "open": "06:30",
+          "close": "08:00"
+        },
+        "saturday": {
+          "open": "10:00",
+          "close": "14:00"
+        },
+        "sunday": {
+          "open": "10:00",
+          "close": "17:00"
+        }
+      },
+      "availability": {
+        "status": "closed",
+        "lastChecked": "2026-04-13T17:53:43.876Z"
+      }
+    },
+    "19": {
+      "id": 19,
+      "name": "Sport- und Lehrschwimmhalle Schöneberg",
+      "openingHours": {
+        "monday": {
+          "open": "12:00",
+          "close": "22:00"
+        },
+        "tuesday": {
+          "open": "06:30",
+          "close": "08:00"
+        },
+        "wednesday": {
+          "open": "06:30",
+          "close": "08:00"
+        },
+        "thursday": {
+          "open": "06:30",
+          "close": "08:00"
+        },
+        "friday": {
+          "open": "06:30",
+          "close": "08:00"
+        },
+        "saturday": null,
+        "sunday": {
+          "open": "08:30",
+          "close": "18:00"
+        }
+      },
+      "availability": {
+        "status": "unknown",
+        "lastChecked": "2026-04-13T17:53:44.708Z"
+      }
+    },
+    "20": {
+      "id": 20,
+      "name": "Stadtbad Charlottenburg - Alte Halle",
+      "openingHours": {
+        "monday": {
+          "open": "10:00",
+          "close": "12:00"
+        },
+        "tuesday": {
+          "open": "06:00",
+          "close": "14:30"
+        },
+        "wednesday": {
+          "open": "06:00",
+          "close": "15:00"
+        },
+        "thursday": {
+          "open": "06:00",
+          "close": "16:00"
+        },
+        "friday": {
+          "open": "06:00",
+          "close": "12:30"
+        },
+        "saturday": {
+          "open": "06:00",
+          "close": "10:00"
+        },
+        "sunday": {
+          "open": "06:00",
+          "close": "10:00"
+        }
+      },
+      "availability": {
+        "status": "unknown",
+        "lastChecked": "2026-04-13T17:53:47.173Z"
+      }
+    },
+    "21": {
+      "id": 21,
+      "name": "Stadtbad Lankwitz",
+      "openingHours": {
+        "monday": {
+          "open": "08:00",
+          "close": "22:00"
+        },
+        "tuesday": {
+          "open": "08:00",
+          "close": "22:00"
+        },
+        "wednesday": {
+          "open": "08:00",
+          "close": "22:00"
+        },
+        "thursday": {
+          "open": "08:00",
+          "close": "22:00"
+        },
+        "friday": {
+          "open": "08:00",
+          "close": "22:00"
+        },
+        "saturday": {
+          "open": "10:00",
+          "close": "18:30"
+        },
+        "sunday": {
+          "open": "10:00",
+          "close": "18:30"
+        }
+      },
+      "availability": {
+        "status": "closed",
+        "lastChecked": "2026-04-13T17:53:47.690Z"
+      }
+    },
+    "22": {
+      "id": 22,
+      "name": "Stadtbad Märkisches Viertel",
+      "openingHours": {
+        "monday": {
+          "open": "06:30",
+          "close": "08:00"
+        },
+        "tuesday": {
+          "open": "06:30",
+          "close": "08:00"
+        },
+        "wednesday": {
+          "open": "06:30",
+          "close": "08:00"
+        },
+        "thursday": {
+          "open": "08:00",
+          "close": "21:30"
+        },
+        "friday": {
+          "open": "10:00",
+          "close": "21:30"
+        },
+        "saturday": {
+          "open": "08:00",
+          "close": "09:00"
+        },
+        "sunday": {
+          "open": "08:00",
+          "close": "15:00"
+        }
+      },
+      "availability": {
+        "status": "unknown",
+        "lastChecked": "2026-04-13T17:53:48.185Z"
+      }
+    },
+    "23": {
+      "id": 23,
+      "name": "Stadtbad Mitte \"James Simon\"",
+      "openingHours": {
+        "monday": {
+          "open": "06:30",
+          "close": "08:00"
+        },
+        "tuesday": {
+          "open": "06:30",
+          "close": "08:00"
+        },
+        "wednesday": {
+          "open": "06:30",
+          "close": "08:00"
+        },
+        "thursday": {
+          "open": "06:30",
+          "close": "08:00"
+        },
+        "friday": {
+          "open": "12:00",
+          "close": "22:00"
+        },
+        "saturday": {
+          "open": "14:00",
+          "close": "21:00"
+        },
+        "sunday": {
+          "open": "10:00",
+          "close": "17:00"
+        }
+      },
+      "availability": {
+        "status": "unknown",
+        "lastChecked": "2026-04-13T17:53:49.010Z"
+      }
+    },
+    "24": {
+      "id": 24,
+      "name": "Stadtbad Neukölln",
+      "openingHours": {
+        "monday": {
+          "open": "12:00",
+          "close": "22:30"
+        },
+        "tuesday": {
+          "open": "08:00",
+          "close": "14:00"
+        },
+        "wednesday": {
+          "open": "08:00",
+          "close": "11:00"
+        },
+        "thursday": {
+          "open": "08:00",
+          "close": "14:00"
+        },
+        "friday": {
+          "open": "08:00",
+          "close": "13:00"
+        },
+        "saturday": {
+          "open": "10:00",
+          "close": "22:30"
+        },
+        "sunday": {
+          "open": "10:00",
+          "close": "22:30"
+        }
+      },
+      "availability": {
+        "status": "closed",
+        "lastChecked": "2026-04-13T17:53:49.955Z"
+      }
+    },
+    "25": {
+      "id": 25,
+      "name": "Stadtbad Spandau Nord",
+      "openingHours": {
+        "monday": {
+          "open": "06:30",
+          "close": "14:00"
+        },
+        "tuesday": {
+          "open": "06:30",
+          "close": "08:00"
+        },
+        "wednesday": {
+          "open": "06:30",
+          "close": "08:00"
+        },
+        "thursday": {
+          "open": "06:30",
+          "close": "08:00"
+        },
+        "friday": {
+          "open": "06:30",
+          "close": "08:00"
+        },
+        "saturday": {
+          "open": "06:30",
+          "close": "08:00"
+        },
+        "sunday": {
+          "open": "06:30",
+          "close": "08:00"
+        }
+      },
+      "availability": {
+        "status": "unknown",
+        "lastChecked": "2026-04-13T17:53:50.745Z"
+      }
+    },
+    "26": {
+      "id": 26,
+      "name": "Stadtbad Tempelhof",
+      "openingHours": {
+        "monday": {
+          "open": "10:00",
+          "close": "16:00"
+        },
+        "tuesday": {
+          "open": "06:30",
+          "close": "08:30"
+        },
+        "wednesday": {
+          "open": "06:30",
+          "close": "08:30"
+        },
+        "thursday": {
+          "open": "06:30",
+          "close": "07:45"
+        },
+        "friday": {
+          "open": "06:30",
+          "close": "08:30"
+        },
+        "saturday": {
+          "open": "08:30",
+          "close": "18:00"
+        },
+        "sunday": {
+          "open": "06:30",
+          "close": "14:00"
+        }
+      },
+      "availability": {
+        "status": "closed",
+        "lastChecked": "2026-04-13T17:53:51.550Z"
+      }
+    },
+    "27": {
+      "id": 27,
+      "name": "Stadtbad Tiergarten",
+      "openingHours": {
+        "monday": {
+          "open": "06:30",
+          "close": "08:00"
+        },
+        "tuesday": {
+          "open": "06:30",
+          "close": "16:00"
+        },
+        "wednesday": {
+          "open": "10:00",
+          "close": "22:00"
+        },
+        "thursday": {
+          "open": "06:30",
+          "close": "08:00"
+        },
+        "friday": {
+          "open": "06:30",
+          "close": "08:00"
+        },
+        "saturday": {
+          "open": "09:00",
+          "close": "17:00"
+        },
+        "sunday": {
+          "open": "09:00",
+          "close": "17:00"
+        }
+      },
+      "availability": {
+        "status": "closed",
+        "lastChecked": "2026-04-13T17:53:52.072Z"
+      }
+    },
+    "28": {
+      "id": 28,
+      "name": "Stadtbad Wilmersdorf I",
+      "openingHours": {
+        "monday": {
+          "open": "12:00",
+          "close": "14:30"
+        },
+        "tuesday": {
+          "open": "06:30",
+          "close": "08:00"
+        },
+        "wednesday": {
+          "open": "06:30",
+          "close": "08:00"
+        },
+        "thursday": {
+          "open": "06:30",
+          "close": "08:00"
+        },
+        "friday": {
+          "open": "06:30",
+          "close": "08:00"
+        },
+        "saturday": {
+          "open": "10:00",
+          "close": "17:00"
+        },
+        "sunday": {
+          "open": "10:00",
+          "close": "17:00"
+        }
+      },
+      "availability": {
+        "status": "closed",
+        "lastChecked": "2026-04-13T17:53:52.590Z"
+      }
+    },
+    "29": {
+      "id": 29,
+      "name": "Stadtbad Wilmersdorf II",
+      "openingHours": {
+        "monday": {
+          "open": "06:00",
+          "close": "08:00"
+        },
+        "tuesday": {
+          "open": "06:00",
+          "close": "08:00"
+        },
+        "wednesday": {
+          "open": "10:00",
+          "close": "22:00"
+        },
+        "thursday": {
+          "open": "06:00",
+          "close": "08:00"
+        },
+        "friday": {
+          "open": "06:00",
+          "close": "08:00"
+        },
+        "saturday": {
+          "open": "09:00",
+          "close": "22:00"
+        },
+        "sunday": null
+      },
+      "availability": {
+        "status": "closed",
+        "lastChecked": "2026-04-13T17:53:53.393Z"
+      }
+    },
+    "30": {
+      "id": 30,
+      "name": "Forumbad Olympiastadion",
+      "openingHours": {
+        "monday": null,
+        "tuesday": null,
+        "wednesday": null,
+        "thursday": null,
+        "friday": null,
+        "saturday": null,
+        "sunday": null
+      },
+      "availability": {
+        "status": "unknown",
+        "lastChecked": "2026-04-13T17:53:55.755Z"
+      }
+    },
+    "31": {
+      "id": 31,
+      "name": "Sportforum Hohenschönhausen",
+      "openingHours": {
+        "monday": null,
+        "tuesday": null,
+        "wednesday": null,
+        "thursday": null,
+        "friday": null,
+        "saturday": null,
+        "sunday": null
+      },
+      "availability": {
+        "status": "unknown",
+        "lastChecked": "2026-04-13T17:53:56.458Z"
+      }
+    },
+    "32": {
+      "id": 32,
+      "name": "Kinderbad Marzahn (Platsch)",
+      "openingHours": {
+        "monday": null,
+        "tuesday": null,
+        "wednesday": null,
+        "thursday": null,
+        "friday": null,
+        "saturday": null,
+        "sunday": null
+      },
+      "availability": {
+        "status": "closed",
+        "lastChecked": "2026-04-13T17:53:57.296Z"
+      }
+    },
+    "33": {
+      "id": 33,
+      "name": "Kinderbad Monbijou",
+      "openingHours": {
+        "monday": null,
+        "tuesday": null,
+        "wednesday": null,
+        "thursday": null,
+        "friday": null,
+        "saturday": null,
+        "sunday": null
+      },
+      "availability": {
+        "status": "closed",
+        "lastChecked": "2026-04-13T17:53:58.097Z"
+      }
+    },
+    "34": {
+      "id": 34,
+      "name": "Kombibad Gropiusstadt - Sommerbad",
+      "openingHours": {
+        "monday": null,
+        "tuesday": null,
+        "wednesday": null,
+        "thursday": null,
+        "friday": null,
+        "saturday": null,
+        "sunday": null
+      },
+      "availability": {
+        "status": "closed",
+        "lastChecked": "2026-04-13T17:53:58.817Z"
+      }
+    },
+    "35": {
+      "id": 35,
+      "name": "Kombibad Seestraße - Sommerbad",
+      "openingHours": {
+        "monday": null,
+        "tuesday": null,
+        "wednesday": null,
+        "thursday": null,
+        "friday": null,
+        "saturday": null,
+        "sunday": null
+      },
+      "availability": {
+        "status": "closed",
+        "lastChecked": "2026-04-13T17:53:59.542Z"
+      }
+    },
+    "36": {
+      "id": 36,
+      "name": "Sommerbad am Insulaner",
+      "openingHours": {
+        "monday": null,
+        "tuesday": null,
+        "wednesday": null,
+        "thursday": null,
+        "friday": null,
+        "saturday": null,
+        "sunday": null
+      },
+      "availability": {
+        "status": "closed",
+        "lastChecked": "2026-04-13T17:54:00.045Z"
+      }
+    },
+    "37": {
+      "id": 37,
+      "name": "Sommerbad Humboldthain",
+      "openingHours": {
+        "monday": null,
+        "tuesday": null,
+        "wednesday": null,
+        "thursday": null,
+        "friday": null,
+        "saturday": null,
+        "sunday": null
+      },
+      "availability": {
+        "status": "closed",
+        "lastChecked": "2026-04-13T17:54:00.555Z"
+      }
+    },
+    "38": {
+      "id": 38,
+      "name": "Sommerbad Kreuzberg",
+      "openingHours": {
+        "monday": null,
+        "tuesday": null,
+        "wednesday": null,
+        "thursday": null,
+        "friday": null,
+        "saturday": null,
+        "sunday": null
+      },
+      "availability": {
+        "status": "closed",
+        "lastChecked": "2026-04-13T17:54:01.387Z"
+      }
+    },
+    "39": {
+      "id": 39,
+      "name": "Sommerbad Mariendorf",
+      "openingHours": {
+        "monday": null,
+        "tuesday": null,
+        "wednesday": null,
+        "thursday": null,
+        "friday": null,
+        "saturday": null,
+        "sunday": null
+      },
+      "availability": {
+        "status": "closed",
+        "lastChecked": "2026-04-13T17:54:02.203Z"
+      }
+    },
+    "40": {
+      "id": 40,
+      "name": "Sommerbad Neukölln",
+      "openingHours": {
+        "monday": null,
+        "tuesday": null,
+        "wednesday": null,
+        "thursday": null,
+        "friday": null,
+        "saturday": null,
+        "sunday": null
+      },
+      "availability": {
+        "status": "closed",
+        "lastChecked": "2026-04-13T17:54:04.763Z"
+      }
+    },
+    "41": {
+      "id": 41,
+      "name": "Sommerbad Olympiastadion",
+      "openingHours": {
+        "monday": null,
+        "tuesday": null,
+        "wednesday": null,
+        "thursday": null,
+        "friday": null,
+        "saturday": null,
+        "sunday": null
+      },
+      "availability": {
+        "status": "closed",
+        "lastChecked": "2026-04-13T17:54:05.609Z"
+      }
+    },
+    "42": {
+      "id": 42,
+      "name": "Sommerbad Pankow",
+      "openingHours": {
+        "monday": null,
+        "tuesday": null,
+        "wednesday": null,
+        "thursday": null,
+        "friday": null,
+        "saturday": null,
+        "sunday": null
+      },
+      "availability": {
+        "status": "closed",
+        "lastChecked": "2026-04-13T17:54:06.201Z"
+      }
+    },
+    "43": {
+      "id": 43,
+      "name": "Sommerbad Staaken-West",
+      "openingHours": {
+        "monday": null,
+        "tuesday": null,
+        "wednesday": null,
+        "thursday": null,
+        "friday": null,
+        "saturday": null,
+        "sunday": null
+      },
+      "availability": {
+        "status": "closed",
+        "lastChecked": "2026-04-13T17:54:07.010Z"
+      }
+    },
+    "44": {
+      "id": 44,
+      "name": "Sommerbad Wilmersdorf",
+      "openingHours": {
+        "monday": null,
+        "tuesday": null,
+        "wednesday": null,
+        "thursday": null,
+        "friday": null,
+        "saturday": null,
+        "sunday": null
+      },
+      "availability": {
+        "status": "closed",
+        "lastChecked": "2026-04-13T17:54:07.717Z"
+      }
+    },
+    "45": {
+      "id": 45,
+      "name": "Sommerbad Wuhlheide",
+      "openingHours": {
+        "monday": null,
+        "tuesday": null,
+        "wednesday": null,
+        "thursday": null,
+        "friday": null,
+        "saturday": null,
+        "sunday": null
+      },
+      "availability": {
+        "status": "closed",
+        "lastChecked": "2026-04-13T17:54:08.439Z"
+      }
+    },
+    "46": {
+      "id": 46,
+      "name": "Sportbad Britz",
+      "openingHours": {
+        "monday": null,
+        "tuesday": null,
+        "wednesday": null,
+        "thursday": null,
+        "friday": null,
+        "saturday": null,
+        "sunday": null
+      },
+      "availability": {
+        "status": "closed",
+        "lastChecked": "2026-04-13T17:54:09.124Z"
+      }
+    },
+    "47": {
+      "id": 47,
+      "name": "Strandbad Friedrichshagen",
+      "openingHours": {
+        "monday": null,
+        "tuesday": null,
+        "wednesday": null,
+        "thursday": null,
+        "friday": null,
+        "saturday": null,
+        "sunday": null
+      },
+      "availability": {
+        "status": "unknown",
+        "lastChecked": "2026-04-13T17:54:09.870Z"
+      }
+    },
+    "48": {
+      "id": 48,
+      "name": "Strandbad Grünau",
+      "openingHours": {
+        "monday": null,
+        "tuesday": null,
+        "wednesday": null,
+        "thursday": null,
+        "friday": null,
+        "saturday": null,
+        "sunday": null
+      },
+      "availability": {
+        "status": "unknown",
+        "lastChecked": "2026-04-13T17:54:10.586Z"
+      }
+    },
+    "49": {
+      "id": 49,
+      "name": "Strandbad Jungfernheide",
+      "openingHours": {
+        "monday": null,
+        "tuesday": null,
+        "wednesday": null,
+        "thursday": null,
+        "friday": null,
+        "saturday": null,
+        "sunday": null
+      },
+      "availability": {
+        "status": "closed",
+        "lastChecked": "2026-04-13T17:54:11.302Z"
+      }
+    },
+    "50": {
+      "id": 50,
+      "name": "Strandbad Lübars",
+      "openingHours": {
+        "monday": null,
+        "tuesday": null,
+        "wednesday": null,
+        "thursday": null,
+        "friday": null,
+        "saturday": null,
+        "sunday": null
+      },
+      "availability": {
+        "status": "closed",
+        "lastChecked": "2026-04-13T17:54:13.669Z"
+      }
+    },
+    "51": {
+      "id": 51,
+      "name": "Strandbad Orankesee",
+      "openingHours": {
+        "monday": null,
+        "tuesday": null,
+        "wednesday": null,
+        "thursday": null,
+        "friday": null,
+        "saturday": null,
+        "sunday": null
+      },
+      "availability": {
+        "status": "closed",
+        "lastChecked": "2026-04-13T17:54:14.379Z"
+      }
+    },
+    "52": {
+      "id": 52,
+      "name": "Strandbad Plötzensee",
+      "openingHours": {
+        "monday": null,
+        "tuesday": null,
+        "wednesday": null,
+        "thursday": null,
+        "friday": null,
+        "saturday": null,
+        "sunday": null
+      },
+      "availability": {
+        "status": "closed",
+        "lastChecked": "2026-04-13T17:54:15.081Z"
+      }
+    },
+    "53": {
+      "id": 53,
+      "name": "Strandbad Tegeler See",
+      "openingHours": {
+        "monday": null,
+        "tuesday": null,
+        "wednesday": null,
+        "thursday": null,
+        "friday": null,
+        "saturday": null,
+        "sunday": null
+      },
+      "availability": {
+        "status": "unknown",
+        "lastChecked": "2026-04-13T17:54:15.811Z"
+      }
+    },
+    "54": {
+      "id": 54,
+      "name": "Strandbad Wannsee",
+      "openingHours": {
+        "monday": null,
+        "tuesday": null,
+        "wednesday": null,
+        "thursday": null,
+        "friday": null,
+        "saturday": null,
+        "sunday": null
+      },
+      "availability": {
+        "status": "closed",
+        "lastChecked": "2026-04-13T17:54:16.628Z"
+      }
+    },
+    "55": {
+      "id": 55,
+      "name": "Strandbad Weißensee",
+      "openingHours": {
+        "monday": null,
+        "tuesday": null,
+        "wednesday": null,
+        "thursday": null,
+        "friday": null,
+        "saturday": null,
+        "sunday": null
+      },
+      "availability": {
+        "status": "closed",
+        "lastChecked": "2026-04-13T17:54:17.297Z"
+      }
+    },
+    "56": {
+      "id": 56,
+      "name": "Strandbad Wendenschloss",
+      "openingHours": {
+        "monday": null,
+        "tuesday": null,
+        "wednesday": null,
+        "thursday": null,
+        "friday": null,
+        "saturday": null,
+        "sunday": null
+      },
+      "availability": {
+        "status": "closed",
+        "lastChecked": "2026-04-13T17:54:18.065Z"
+      }
+    },
+    "57": {
+      "id": 57,
+      "name": "Strandbad Halensee",
+      "openingHours": {
+        "monday": null,
+        "tuesday": null,
+        "wednesday": null,
+        "thursday": null,
+        "friday": null,
+        "saturday": null,
+        "sunday": null
+      },
+      "availability": {
+        "status": "closed",
+        "lastChecked": "2026-04-13T17:54:18.784Z"
+      }
+    },
+    "58": {
+      "id": 58,
+      "name": "Kombibad Mariendorf - Hallenbad",
+      "openingHours": {
+        "monday": null,
+        "tuesday": null,
+        "wednesday": null,
+        "thursday": null,
+        "friday": null,
+        "saturday": null,
+        "sunday": null
+      },
+      "availability": {
+        "status": "closed",
+        "lastChecked": "2026-04-13T17:54:19.508Z"
+      }
+    },
+    "59": {
+      "id": 59,
+      "name": "Kombibad Mariendorf - Sommerbad",
+      "openingHours": {
+        "monday": null,
+        "tuesday": null,
+        "wednesday": null,
+        "thursday": null,
+        "friday": null,
+        "saturday": null,
+        "sunday": null
+      },
+      "availability": {
+        "status": "closed",
+        "lastChecked": "2026-04-13T17:54:20.203Z"
+      }
+    },
+    "60": {
+      "id": 60,
+      "name": "Kombibad Spandau Süd - Sommerbad",
+      "openingHours": {
+        "monday": null,
+        "tuesday": null,
+        "wednesday": null,
+        "thursday": null,
+        "friday": null,
+        "saturday": null,
+        "sunday": null
+      },
+      "availability": {
+        "status": "closed",
+        "lastChecked": "2026-04-13T17:54:22.676Z"
+      }
+    },
+    "61": {
+      "id": 61,
+      "name": "Paracelsus-Bad",
+      "openingHours": {
+        "monday": null,
+        "tuesday": null,
+        "wednesday": null,
+        "thursday": null,
+        "friday": null,
+        "saturday": null,
+        "sunday": null
+      },
+      "availability": {
+        "status": "closed",
+        "lastChecked": "2026-04-13T17:54:23.188Z"
+      }
+    },
+    "62": {
+      "id": 62,
+      "name": "Schwimmhalle Holzmarktstraße (Neubauvorhaben)",
+      "openingHours": {
+        "monday": null,
+        "tuesday": null,
+        "wednesday": null,
+        "thursday": null,
+        "friday": null,
+        "saturday": null,
+        "sunday": null
+      },
+      "availability": {
+        "status": "unknown",
+        "lastChecked": "2026-04-13T17:54:23.710Z"
+      }
+    },
+    "63": {
+      "id": 63,
+      "name": "Stadtbad Charlottenburg - Neue Halle",
+      "openingHours": {
+        "monday": null,
+        "tuesday": null,
+        "wednesday": null,
+        "thursday": null,
+        "friday": null,
+        "saturday": null,
+        "sunday": null
+      },
+      "availability": {
+        "status": "closed",
+        "lastChecked": "2026-04-13T17:54:24.416Z"
+      }
+    },
+    "64": {
+      "id": 64,
+      "name": "Stadtbad Schöneberg \"Hans Rosenthal\"",
+      "openingHours": {
+        "monday": null,
+        "tuesday": null,
+        "wednesday": null,
+        "thursday": null,
+        "friday": null,
+        "saturday": null,
+        "sunday": null
+      },
+      "availability": {
+        "status": "closed",
+        "lastChecked": "2026-04-13T17:54:24.938Z"
+      }
+    },
+    "65": {
+      "id": 65,
+      "name": "Wellenbad am Spreewaldplatz",
+      "openingHours": {
+        "monday": null,
+        "tuesday": null,
+        "wednesday": null,
+        "thursday": null,
+        "friday": null,
+        "saturday": null,
+        "sunday": null
+      },
+      "availability": {
+        "status": "closed",
+        "lastChecked": "2026-04-13T17:54:25.699Z"
+      }
+    },
+    "66": {
+      "id": 66,
+      "name": "Saunalandschaft und Sommerbad Lichterfelde (Spucki)",
+      "openingHours": {
+        "monday": null,
+        "tuesday": null,
+        "wednesday": null,
+        "thursday": null,
+        "friday": null,
+        "saturday": null,
+        "sunday": null
+      },
+      "availability": {
+        "status": "closed",
+        "lastChecked": "2026-04-13T17:54:26.463Z"
+      }
+    }
+  }
+}

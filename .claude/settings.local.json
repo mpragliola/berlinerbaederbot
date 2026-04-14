@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:www.berlinerbaeder.de)",
+      "Bash(npm run:*)",
+      "Bash(npm start:*)",
+      "Bash(curl -s *)",
+      "Bash(pkill -f \"node server.js\")",
+      "Bash(ls:*)",
+      "Bash(grep:*)"
+    ]
+  }
+}

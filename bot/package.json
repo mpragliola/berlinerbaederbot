@@ -1,0 +1,19 @@
+{
+  "name": "berliner-baeder-bot",
+  "version": "1.0.0",
+  "description": "Telegram bot for Berliner Bäder pool availability",
+  "main": "telegram-bot.js",
+  "scripts": {
+    "start": "node telegram-bot.js",
+    "dev": "nodemon telegram-bot.js"
+  },
+  "keywords": ["berliner-baeder", "pools", "telegram", "bot"],
+  "license": "MIT",
+  "dependencies": {
+    "node-telegram-bot-api": "^0.63.0",
+    "dotenv": "^16.3.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "name": "berliner-baeder-monorepo",
+  "version": "1.0.0",
+  "description": "Berliner Bäder pool scraper, API, and Telegram bot",
+  "private": true,
+  "workspaces": [
+    "api",
+    "bot"
+  ],
+  "scripts": {
+    "start": "concurrently \"npm run start --workspace=api\" \"npm run start --workspace=bot\"",
+    "dev": "concurrently \"npm run dev --workspace=api\" \"npm run dev --workspace=bot\"",
+    "scrape:all": "npm run scrape:all --workspace=api"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.0"
+  }
+}
