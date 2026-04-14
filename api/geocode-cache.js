@@ -3,21 +3,27 @@ const path = require('path');
 
 const CACHE_FILE = path.join(__dirname, '..', 'data', 'geocode-cache.json');
 
+let _cache = null;
+
 /**
- * Load geocoding cache from disk
+ * Load geocoding cache from disk (cached in memory after first load)
  */
 async function loadCache() {
+  if (_cache) return _cache;
+
   try {
     const data = await fs.readFile(CACHE_FILE, 'utf-8');
-    return JSON.parse(data);
+    _cache = JSON.parse(data);
   } catch (error) {
     // Return empty cache if file doesn't exist
-    return {
+    _cache = {
       lastUpdated: new Date().toISOString(),
       cacheVersion: 1,
       entries: {}
     };
   }
+
+  return _cache;
 }
 
 /**
@@ -40,10 +46,10 @@ async function saveCache(cache) {
 /**
  * Create cache key from address (normalized)
  */
-function getCacheKey(address, district) {
-  if (!address || !district) return null;
+function getCacheKey(address, plz) {
+  if (!address || !plz) return null;
   // Normalize to lowercase and trim whitespace
-  return `${address.trim().toLowerCase()}|${district.trim().toLowerCase()}`;
+  return `${address.trim().toLowerCase()}|${plz.trim().toLowerCase()}`;
 }
 
 /**
@@ -93,12 +99,12 @@ async function getStats() {
  * Clear cache (for testing)
  */
 async function clearCache() {
-  const emptyCache = {
+  _cache = {
     lastUpdated: new Date().toISOString(),
     cacheVersion: 1,
     entries: {}
   };
-  return await saveCache(emptyCache);
+  return await saveCache(_cache);
 }
 
 module.exports = {
