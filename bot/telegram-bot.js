@@ -16,6 +16,40 @@ const bot = new TelegramBot(BOT_TOKEN, { polling: true });
 const userRadiusPreference = {};
 const userLocations = {};
 
+// ─── keyboard menus ──────────────────────────────────────────────────────────
+
+const mainMenu = {
+  inline_keyboard: [
+    [{ text: '🏊 All Pools', callback_data: 'pools' }],
+    [{ text: '📍 Near Me', callback_data: 'near_action' }, { text: '📍 Near (Open)', callback_data: 'near_open_action' }],
+    [{ text: '💾 Save Location', callback_data: 'location' }],
+    [{ text: '❌ Clear Location', callback_data: 'clear_location' }],
+    [{ text: '❓ Help', callback_data: 'help' }]
+  ]
+};
+
+const nearMenu = {
+  inline_keyboard: [
+    [
+      { text: '3 km', callback_data: 'near_3' },
+      { text: '5 km', callback_data: 'near_5' },
+      { text: '10 km', callback_data: 'near_10' }
+    ],
+    [{ text: '↩️ Back', callback_data: 'back_to_main' }]
+  ]
+};
+
+const nearOpenMenu = {
+  inline_keyboard: [
+    [
+      { text: '3 km', callback_data: 'near_open_3' },
+      { text: '5 km', callback_data: 'near_open_5' },
+      { text: '10 km', callback_data: 'near_open_10' }
+    ],
+    [{ text: '↩️ Back', callback_data: 'back_to_main' }]
+  ]
+};
+
 // ─── helpers ────────────────────────────────────────────────────────────────
 
 function getDayName() {
@@ -95,12 +129,8 @@ async function fetchAvailable() {
 bot.onText(/\/start/, (msg) => {
   const name = msg.from?.first_name ?? 'there';
   bot.sendMessage(msg.chat.id,
-    `👋 Hey ${name}\\! I can tell you which Berlin pools are open\\.\n\n` +
-    `*Commands:*\n` +
-    `/pools — show all currently open pools\n` +
-    `/near — share your location to find pools close to you\n` +
-    `/help — show this message`,
-    { parse_mode: 'MarkdownV2' }
+    `👋 Hey ${name}\\! I can tell you which Berlin pools are open\\.`,
+    { reply_markup: mainMenu, parse_mode: 'MarkdownV2' }
   );
 });
 
@@ -204,34 +234,41 @@ bot.onText(/\/near\s*(\d+)?/, (msg, match) => {
 
 // ─── Helper: search for nearby pools ───────────────────────────────────────
 
-async function handleNearbySearch(chatId, userId, latitude, longitude, radius) {
+async function handleNearbySearch(chatId, userId, latitude, longitude, radius, openOnly = false) {
   await bot.sendMessage(chatId, `🔍 Looking for pools within ${radius} km…`, {
     reply_markup: { remove_keyboard: true }
   });
 
   try {
     const data  = await fetchNearby(latitude, longitude, radius);
-    const pools = data.pools ?? [];
+    let pools = data.pools ?? [];
+
+    // Filter to open pools only if requested
+    if (openOnly) {
+      pools = pools.filter(p => p.availability?.status === 'open' || p.availability?.status === 'available' || p.availability?.status === 'unknown');
+    }
 
     if (!pools.length) {
       await bot.sendMessage(chatId,
-        escMd(`😕 No pools found within ${data.searchRadius ?? radius + ' km'}. Try /pools to see all pools.`),
-        { parse_mode: 'MarkdownV2' }
+        escMd(`😕 No ${openOnly ? 'open ' : ''}pools found within ${data.searchRadius ?? radius + ' km'}.`),
+        { parse_mode: 'MarkdownV2', reply_markup: { inline_keyboard: [[{ text: '⬅️ Back to Menu', callback_data: 'back_to_main' }]] } }
       );
       return;
     }
 
     const header = escMd(`📍 Pools near you \\(${data.searchRadius}\\):\n\n`);
-    const body   = formatPoolsByStatus(pools);
+    const body   = openOnly ? pools.map(formatPool).join('\n') : formatPoolsByStatus(pools);
 
     await bot.sendMessage(chatId, header + body, {
       parse_mode: 'MarkdownV2',
-      disable_web_page_preview: true
+      disable_web_page_preview: true,
+      reply_markup: { inline_keyboard: [[{ text: '⬅️ Back to Menu', callback_data: 'back_to_main' }]] }
     });
   } catch (err) {
     console.error('nearby search error:', err);
     await bot.sendMessage(chatId, '❌ Could not reach the pools API\\. Try again later\\.', {
-      parse_mode: 'MarkdownV2'
+      parse_mode: 'MarkdownV2',
+      reply_markup: { inline_keyboard: [[{ text: '⬅️ Back to Menu', callback_data: 'back_to_main' }]] }
     });
   }
 }
@@ -250,17 +287,180 @@ bot.on('location', async (msg) => {
   console.log(`✅ Saved location for user ${userId}`);
 
   // If radius was set (from /near command), search; otherwise just confirm save
-  const radius = userRadiusPreference[userId];
-  if (radius) {
-    console.log(`🔍 Searching with radius ${radius} km`);
+  const radiusPreference = userRadiusPreference[userId];
+  if (radiusPreference) {
+    const radius = typeof radiusPreference === 'object' ? radiusPreference.radius : radiusPreference;
+    const openOnly = typeof radiusPreference === 'object' ? radiusPreference.openOnly : false;
+    console.log(`🔍 Searching with radius ${radius} km${openOnly ? ' (open only)' : ''}`);
     delete userRadiusPreference[userId]; // Clear so we don't reuse it
-    await handleNearbySearch(chatId, userId, latitude, longitude, radius);
+    await handleNearbySearch(chatId, userId, latitude, longitude, radius, openOnly);
   } else {
     console.log(`💾 Just saving location, no search`);
-    await bot.sendMessage(chatId, '✅ Location saved\\! Use /near to find pools nearby\\.', {
+    await bot.sendMessage(chatId, '✅ Location saved\\! Use the menu to find pools nearby\\.', {
       parse_mode: 'MarkdownV2',
-      disable_web_page_preview: true
+      disable_web_page_preview: true,
+      reply_markup: mainMenu
     });
+  }
+});
+
+// ─── callback query handlers (button presses) ───────────────────────────────
+
+bot.on('callback_query', async (query) => {
+  const chatId = query.message.chat.id;
+  const userId = query.from.id;
+  const data = query.data;
+
+  console.log(`🔘 Button pressed: ${data} by user ${userId}`);
+
+  try {
+    if (data === 'pools') {
+      await bot.deleteMessage(chatId, query.message.message_id);
+      const fetchMsg = await bot.sendMessage(chatId, '🔍 Fetching pools…');
+      const poolData = await fetchAvailable();
+      const pools = poolData.pools ?? [];
+
+      if (!pools.length) {
+        await bot.editMessageText('😴 No pools available right now\\.', {
+          chat_id: chatId,
+          message_id: fetchMsg.message_id,
+          parse_mode: 'MarkdownV2',
+          reply_markup: { inline_keyboard: [[{ text: '⬅️ Back to Menu', callback_data: 'back_to_main' }]] }
+        });
+      } else {
+        const body = formatPoolsByStatus(pools);
+        await bot.editMessageText(body, {
+          chat_id: chatId,
+          message_id: fetchMsg.message_id,
+          parse_mode: 'MarkdownV2',
+          disable_web_page_preview: true,
+          reply_markup: { inline_keyboard: [[{ text: '⬅️ Back to Menu', callback_data: 'back_to_main' }]] }
+        });
+      }
+    }
+
+    else if (data === 'near_action') {
+      await bot.editMessageText('📍 Select search radius:', {
+        chat_id: chatId,
+        message_id: query.message.message_id,
+        parse_mode: 'MarkdownV2',
+        reply_markup: nearMenu
+      });
+    }
+
+    else if (data === 'near_open_action') {
+      await bot.editMessageText('📍 Select search radius \\(open pools only\\):', {
+        chat_id: chatId,
+        message_id: query.message.message_id,
+        parse_mode: 'MarkdownV2',
+        reply_markup: nearOpenMenu
+      });
+    }
+
+    else if (data.startsWith('near_open_')) {
+      const radius = parseInt(data.split('_')[2]);
+      userRadiusPreference[userId] = { radius, openOnly: true };
+
+      if (userLocations[userId]) {
+        const { latitude, longitude } = userLocations[userId];
+        await bot.deleteMessage(chatId, query.message.message_id);
+        await handleNearbySearch(chatId, userId, latitude, longitude, radius, true);
+      } else {
+        await bot.deleteMessage(chatId, query.message.message_id);
+        await bot.sendMessage(chatId,
+          `📍 Send me your location and I'll find open pools within *${radius} km*\\.`,
+          {
+            parse_mode: 'MarkdownV2',
+            reply_markup: {
+              keyboard: [[{ text: '📍 Share my location', request_location: true }]],
+              resize_keyboard: true,
+              one_time_keyboard: true
+            }
+          }
+        );
+      }
+    }
+
+    else if (data.startsWith('near_') && !data.startsWith('near_open_')) {
+      const radius = parseInt(data.split('_')[1]);
+      userRadiusPreference[userId] = radius;
+
+      if (userLocations[userId]) {
+        const { latitude, longitude } = userLocations[userId];
+        await bot.deleteMessage(chatId, query.message.message_id);
+        await handleNearbySearch(chatId, userId, latitude, longitude, radius);
+      } else {
+        await bot.deleteMessage(chatId, query.message.message_id);
+        await bot.sendMessage(chatId,
+          `📍 Send me your location and I'll find pools within *${radius} km*\\.`,
+          {
+            parse_mode: 'MarkdownV2',
+            reply_markup: {
+              keyboard: [[{ text: '📍 Share my location', request_location: true }]],
+              resize_keyboard: true,
+              one_time_keyboard: true
+            }
+          }
+        );
+      }
+    }
+
+    else if (data === 'location') {
+      await bot.deleteMessage(chatId, query.message.message_id);
+      await bot.sendMessage(chatId,
+        `📍 Share your location and I'll save it for quick searches\\.`,
+        {
+          parse_mode: 'MarkdownV2',
+          reply_markup: {
+            keyboard: [[{ text: '📍 Share my location', request_location: true }]],
+            resize_keyboard: true,
+            one_time_keyboard: true
+          }
+        }
+      );
+    }
+
+    else if (data === 'clear_location') {
+      delete userLocations[userId];
+      await bot.editMessageText('✅ Location cleared\\.', {
+        chat_id: chatId,
+        message_id: query.message.message_id,
+        parse_mode: 'MarkdownV2',
+        reply_markup: mainMenu
+      });
+    }
+
+    else if (data === 'help') {
+      await bot.editMessageText(
+        `*Berliner Bäder Bot*\n\n` +
+        `🏊 *All Pools* — show all pools\n` +
+        `📍 *Near Me* — find pools near your location\n` +
+        `💾 *Save Location* — remember your location\n` +
+        `❌ *Clear Location* — forget saved location`,
+        {
+          chat_id: chatId,
+          message_id: query.message.message_id,
+          parse_mode: 'MarkdownV2',
+          reply_markup: mainMenu
+        }
+      );
+    }
+
+    else if (data === 'back_to_main') {
+      await bot.editMessageText(
+        `👋 Berliner Bäder Bot`,
+        {
+          chat_id: chatId,
+          message_id: query.message.message_id,
+          reply_markup: mainMenu
+        }
+      );
+    }
+
+    await bot.answerCallbackQuery(query.id);
+  } catch (err) {
+    console.error('Callback query error:', err);
+    await bot.answerCallbackQuery(query.id, { text: '❌ Error', show_alert: true });
   }
 });
 
@@ -275,8 +475,8 @@ bot.on('message', (msg) => {
 
   if (msg.location || msg.text?.startsWith('/')) return;
   bot.sendMessage(msg.chat.id,
-    `Use /pools to see open pools, or /near to find pools close to you\\.`,
-    { parse_mode: 'MarkdownV2' }
+    `Use the buttons below to search for pools\\.`,
+    { reply_markup: mainMenu, parse_mode: 'MarkdownV2' }
   );
 });
 
