@@ -84,8 +84,7 @@ function filterPublicSwimming(pools) {
   return pools.filter(pool => {
     if (!pool.availability) return false;
     return pool.availability.status === 'open' ||
-           pool.availability.status === 'available' ||
-           pool.availability.status === 'unknown';
+           pool.availability.status === 'available';
   });
 }
 

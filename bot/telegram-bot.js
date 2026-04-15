@@ -285,7 +285,7 @@ async function handleNearbySearch(chatId, userId, latitude, longitude, radius, o
 
     // Filter to open pools only if requested
     if (openOnly) {
-      pools = pools.filter(p => p.availability?.status === 'open' || p.availability?.status === 'available' || p.availability?.status === 'unknown');
+      pools = pools.filter(p => p.availability?.status === 'open' || p.availability?.status === 'available');
     }
 
     if (!pools.length) {

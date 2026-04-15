@@ -90,7 +90,7 @@ User (Telegram)
 |--------|------|-------|
 | GET | `/health` | Health check |
 | GET | `/api/status` | Data freshness + pool counts |
-| GET | `/api/pools` | All pools; `?publicOnly=true` filters to open/unknown |
+| GET | `/api/pools` | All pools; `?publicOnly=true` filters to open/available status only |
 | GET | `/api/pools/available` | Only open pools |
 | GET | `/api/pools/near` | `?lat=…&lon=…&radius=…` — sorted by distance |
 | GET | `/api/pools/by-district/:district` | Filter by Berlin district name |
