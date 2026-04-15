@@ -195,24 +195,28 @@ bot.onText(/\/help/, (msg) => {
 
 bot.onText(/\/pools/, async (msg) => {
   const chatId = msg.chat.id;
-  await bot.sendMessage(chatId, '🔍 Fetching pools…');
+  const fetchMsg = await bot.sendMessage(chatId, '🔍 Fetching pools…');
 
   try {
     const data = await fetchAvailable();
     const pools = data.pools ?? [];
 
     if (!pools.length) {
-      await bot.sendMessage(chatId, '😴 No pools available right now\\.', {
+      await bot.editMessageText('😴 No pools available right now\\.', {
+        chat_id: chatId,
+        message_id: fetchMsg.message_id,
         parse_mode: 'MarkdownV2'
       });
       return;
     }
 
     const body = formatPoolsByStatus(pools);
-    await sendLong(chatId, body, { parse_mode: 'MarkdownV2', disable_web_page_preview: true });
+    await sendLong(chatId, body, { parse_mode: 'MarkdownV2', disable_web_page_preview: true }, fetchMsg.message_id);
   } catch (err) {
     console.error('/pools error:', err);
-    await bot.sendMessage(chatId, '❌ Could not reach the pools API\\. Try again later\\.', {
+    await bot.editMessageText('❌ Could not reach the pools API\\. Try again later\\.', {
+      chat_id: chatId,
+      message_id: fetchMsg.message_id,
       parse_mode: 'MarkdownV2'
     });
   }
@@ -275,7 +279,7 @@ bot.onText(/\/near\s*(\d+)?/, (msg, match) => {
 // ─── Helper: search for nearby pools ───────────────────────────────────────
 
 async function handleNearbySearch(chatId, userId, latitude, longitude, radius, openOnly = false) {
-  await bot.sendMessage(chatId, `🔍 Looking for pools within ${radius} km…`, {
+  const fetchMsg = await bot.sendMessage(chatId, `🔍 Looking for pools within ${radius} km…`, {
     reply_markup: { remove_keyboard: true }
   });
 
@@ -289,9 +293,13 @@ async function handleNearbySearch(chatId, userId, latitude, longitude, radius, o
     }
 
     if (!pools.length) {
-      await bot.sendMessage(chatId,
+      await bot.editMessageText(
         `😕 No ${openOnly ? 'open ' : ''}pools found within ${data.searchRadius ?? radius + ' km'}.`,
-        { reply_markup: { inline_keyboard: [[{ text: '⬅️ Back to Menu', callback_data: 'back_to_main' }]] } }
+        {
+          chat_id: chatId,
+          message_id: fetchMsg.message_id,
+          reply_markup: { inline_keyboard: [[{ text: '⬅️ Back to Menu', callback_data: 'back_to_main' }]] }
+        }
       );
       return;
     }
@@ -302,10 +310,12 @@ async function handleNearbySearch(chatId, userId, latitude, longitude, radius, o
       parse_mode: 'MarkdownV2',
       disable_web_page_preview: true,
       reply_markup: { inline_keyboard: [[{ text: '⬅️ Back to Menu', callback_data: 'back_to_main' }]] }
-    });
+    }, fetchMsg.message_id);
   } catch (err) {
     console.error('nearby search error:', err);
-    await bot.sendMessage(chatId, '❌ Could not reach the pools API. Try again later.', {
+    await bot.editMessageText('❌ Could not reach the pools API. Try again later.', {
+      chat_id: chatId,
+      message_id: fetchMsg.message_id,
       reply_markup: { inline_keyboard: [[{ text: '⬅️ Back to Menu', callback_data: 'back_to_main' }]] }
     });
   }
