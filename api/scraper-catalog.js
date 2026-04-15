@@ -1,8 +1,10 @@
-const axios = require('axios');
+require('dotenv').config({ path: require('path').resolve(__dirname, '../.env') });
 const cheerio = require('cheerio');
 const fs = require('fs').promises;
 const path = require('path');
 const geocodeCache = require('./geocode-cache');
+const pageCache = require('./page-cache');
+const axios = require('axios');
 
 /**
  * Scraper for pool catalog (static data)
@@ -157,24 +159,18 @@ async function geocodeAddress(address, plz, retryCount = 0) {
  * Fetch all pools from the listing pages
  * Includes fetching districts from detail pages
  */
-async function fetchPoolCatalog() {
+async function fetchPoolCatalog(usePageCache = false) {
   try {
     console.log('🏊 Starting pool catalog scrape...');
+    if (usePageCache) console.log('   📦 Page cache enabled');
     const pools = [];
 
     for (let page = 1; page <= maxPages; page++) {
       try {
         const pageUrl = page === 1 ? `${BASE_URL}/baeder` : `${BASE_URL}/baeder/page/${page}/`;
-        console.log(`  📄 Fetching page ${page}...`);
-
-        const response = await axios.get(pageUrl, {
-          headers: {
-            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
-          },
-          timeout: 10000
-        });
-
-        const $ = cheerio.load(response.data);
+        const { html, fromCache } = await pageCache.fetchPage(pageUrl, usePageCache);
+        console.log(`  ${fromCache ? '📦' : '📄'} Fetching page ${page}...`);
+        const $ = cheerio.load(html);
         const poolElements = $('.bathlist_item');
 
         poolElements.each((index, element) => {
@@ -204,8 +200,7 @@ async function fetchPoolCatalog() {
           }
         });
 
-        // Small delay between pages
-        if (page < maxPages) {
+        if (!fromCache && page < maxPages) {
           await new Promise(resolve => setTimeout(resolve, 300));
         }
       } catch (pageError) {
@@ -221,14 +216,8 @@ async function fetchPoolCatalog() {
       const pool = pools[i];
 
       try {
-        const response = await axios.get(pool.url, {
-          headers: {
-            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
-          },
-          timeout: 5000
-        });
-
-        const $ = cheerio.load(response.data);
+        const { html, fromCache } = await pageCache.fetchPage(pool.url, usePageCache, { timeout: 5000 });
+        const $ = cheerio.load(html);
 
         const detail = extractAddressFromDetail($);
         if (detail) {
@@ -238,14 +227,12 @@ async function fetchPoolCatalog() {
         }
 
         detailCount++;
-        console.log(`  ✅ ${pool.name.substring(0, 35)} - PLZ: ${pools[i].plz || 'N/A'} District: ${pools[i].district || 'N/A'}`);
+        console.log(`  ${fromCache ? '📦' : '✅'} ${pool.name.substring(0, 35)} - PLZ: ${pools[i].plz || 'N/A'} District: ${pools[i].district || 'N/A'}`);
+        if (!fromCache && i < pools.length - 1) {
+          await new Promise(resolve => setTimeout(resolve, 300));
+        }
       } catch (error) {
         console.error(`  ❌ Error fetching details for ${pool.name}:`, error.message);
-      }
-
-      // Delay between detail page requests
-      if (i < pools.length - 1) {
-        await new Promise(resolve => setTimeout(resolve, 300));
       }
     }
 
@@ -387,10 +374,10 @@ async function geocodeCatalog(pools) {
 /**
  * Run catalog scraper
  */
-async function run() {
+async function run(usePageCache = false) {
   try {
     console.log('🔄 Starting pool catalog scrape cycle...\n');
-    let pools = await fetchPoolCatalog();
+    let pools = await fetchPoolCatalog(usePageCache);
 
     if (pools.length === 0) {
       return {
@@ -469,9 +456,10 @@ async function runGeocodeOnly() {
 /**
  * Re-fetch detail pages only for pools missing address or PLZ, then geocode
  */
-async function runFillMissing() {
+async function runFillMissing(usePageCache = false) {
   try {
     console.log('🔄 Filling missing addresses...\n');
+    if (usePageCache) console.log('   📦 Page cache enabled');
     const pools = await loadCatalog();
 
     if (pools.length === 0) {
@@ -491,27 +479,22 @@ async function runFillMissing() {
       if (pool.address && pool.plz) continue;
 
       try {
-        const response = await axios.get(pool.url, {
-          headers: { 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36' },
-          timeout: 5000
-        });
-
-        const $ = cheerio.load(response.data);
+        const { html, fromCache } = await pageCache.fetchPage(pool.url, usePageCache, { timeout: 5000 });
+        const $ = cheerio.load(html);
         const detail = extractAddressFromDetail($);
         if (detail) {
           pools[i].address = detail.address;
           pools[i].plz = detail.plz;
           pools[i].district = detail.district;
-          console.log(`  ✅ ${pool.name.substring(0, 40)} — ${detail.address}, ${detail.plz}`);
+          console.log(`  ${fromCache ? '📦' : '✅'} ${pool.name.substring(0, 40)} — ${detail.address}, ${detail.plz}`);
         } else {
-          console.log(`  ⚠️  ${pool.name.substring(0, 40)} — not found on page`);
+          console.log(`  ${fromCache ? '📦' : '⚠️ '} ${pool.name.substring(0, 40)} — not found on page`);
+        }
+        if (!fromCache && i < pools.length - 1) {
+          await new Promise(resolve => setTimeout(resolve, 300));
         }
       } catch (error) {
         console.error(`  ❌ ${pool.name}:`, error.message);
-      }
-
-      if (i < pools.length - 1) {
-        await new Promise(resolve => setTimeout(resolve, 300));
       }
     }
 
@@ -533,9 +516,11 @@ async function runFillMissing() {
 // Run if executed directly
 if (require.main === module) {
   const args = process.argv.slice(2);
-  const runFn = args.includes('--geocode-only') ? runGeocodeOnly
-              : args.includes('--fill-missing') ? runFillMissing
-              : run;
+  const usePageCache = args.includes('--cache-pages') || process.env.PAGE_CACHE === '1';
+
+  const runFn = args.includes('--geocode-only') ? () => runGeocodeOnly()
+              : args.includes('--fill-missing') ? () => runFillMissing(usePageCache)
+              : () => run(usePageCache);
 
   runFn().then(result => {
     console.log(JSON.stringify(result, null, 2));

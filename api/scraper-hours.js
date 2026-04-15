@@ -1,7 +1,8 @@
-const axios = require('axios');
+require('dotenv').config({ path: require('path').resolve(__dirname, '../.env') });
 const cheerio = require('cheerio');
 const fs = require('fs').promises;
 const path = require('path');
+const pageCache = require('./page-cache');
 
 /**
  * Scraper for pool opening hours and availability (frequent updates)
@@ -103,16 +104,10 @@ function extractAvailability($) {
 /**
  * Fetch hours for a single pool
  */
-async function fetchPoolHours(pool) {
+async function fetchPoolHours(pool, usePageCache = false) {
   try {
-    const response = await axios.get(pool.url, {
-      headers: {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
-      },
-      timeout: 10000
-    });
-
-    const $ = cheerio.load(response.data);
+    const { html, fromCache } = await pageCache.fetchPage(pool.url, usePageCache);
+    const $ = cheerio.load(html);
 
     const openingHours = extractOpeningHours($);
     const availability = extractAvailability($);
@@ -121,7 +116,8 @@ async function fetchPoolHours(pool) {
       id: pool.id,
       name: pool.name,
       openingHours,
-      availability
+      availability,
+      fromCache
     };
   } catch (error) {
     console.error(`  ❌ Error fetching hours for ${pool.name}:`, error.message);
@@ -132,7 +128,8 @@ async function fetchPoolHours(pool) {
         monday: null, tuesday: null, wednesday: null, thursday: null,
         friday: null, saturday: null, sunday: null
       },
-      availability: { status: 'unknown', lastChecked: new Date().toISOString() }
+      availability: { status: 'unknown', lastChecked: new Date().toISOString() },
+      fromCache: false
     };
   }
 }
@@ -140,28 +137,30 @@ async function fetchPoolHours(pool) {
 /**
  * Fetch hours for all pools
  */
-async function fetchAllHours(pools) {
+async function fetchAllHours(pools, usePageCache = false) {
   try {
     console.log(`🏊 Starting to fetch opening hours for ${pools.length} pools...`);
+    if (usePageCache) console.log('   📦 Page cache enabled');
 
     const allHours = {};
+    let fetchCount = 0;
 
     for (let i = 0; i < pools.length; i++) {
       const pool = pools[i];
-      console.log(`  ⏱️  Pool ${i + 1}/${pools.length}: ${pool.name.substring(0, 40)}`);
-
-      const hours = await fetchPoolHours(pool);
+      const hours = await fetchPoolHours(pool, usePageCache);
+      console.log(`  ${hours.fromCache ? '📦' : '⏱️ '} Pool ${i + 1}/${pools.length}: ${pool.name.substring(0, 40)}`);
       allHours[pool.id] = hours;
 
-      // Add delay between requests
-      if (i < pools.length - 1) {
-        if (i % 10 === 9) {
-          console.log(`  ⏸️  Waiting after ${i + 1} pools...`);
+      // Only delay after live network requests
+      if (!hours.fromCache && i < pools.length - 1) {
+        if (fetchCount % 10 === 9) {
+          console.log(`  ⏸️  Waiting after ${fetchCount + 1} live fetches...`);
           await new Promise(resolve => setTimeout(resolve, 2000));
         } else {
           await new Promise(resolve => setTimeout(resolve, 300));
         }
       }
+      if (!hours.fromCache) fetchCount++;
     }
 
     return allHours;
@@ -197,7 +196,7 @@ async function saveHours(hoursData) {
 /**
  * Run hours scraper
  */
-async function run() {
+async function run(usePageCache = false) {
   try {
     console.log('🔄 Starting pool hours scrape cycle...\n');
 
@@ -210,7 +209,7 @@ async function run() {
       };
     }
 
-    const hoursData = await fetchAllHours(pools);
+    const hoursData = await fetchAllHours(pools, usePageCache);
 
     if (Object.keys(hoursData).length === 0) {
       return {
@@ -244,10 +243,13 @@ async function run() {
 
 // Run if executed directly
 if (require.main === module) {
-  run().then(result => {
+  const args = process.argv.slice(2);
+  const usePageCache = args.includes('--cache-pages') || process.env.PAGE_CACHE === '1';
+
+  run(usePageCache).then(result => {
     console.log(JSON.stringify(result, null, 2));
     process.exit(result.success ? 0 : 1);
   });
 }
 
-module.exports = { run, fetchAllHours, saveHours, loadCatalog };
+module.exports = { run, fetchAllHours, fetchPoolHours, saveHours, loadCatalog };
